@@ -16,9 +16,12 @@ module.exports = async (args) => {
         throw new Error("Số điện thoại phải là 10 số");
     }
 
-    const phoneNumberExists = await User.findOne({ phone_number }).lean();
-    if (phoneNumberExists) {
-        throw new Error("Số điện thoại đã tồn tại!");
+
+    if (phone_number) {
+        const phoneNumberExists = await User.findOne({ phone_number }).lean();
+        if (phoneNumberExists) {
+            throw new Error("Số điện thoại đã tồn tại!");
+        }
     }
 
     const hashPassword = bcrypt.hashSync(password, salt);

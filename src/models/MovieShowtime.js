@@ -8,16 +8,16 @@ const MovieShowtimeSchema = new Schema({
     movie: {
         type: Schema.Types.ObjectId,
         ref: "Movie",
-        back_populates: "movie_showtimes",
+        // back_populates: "movie_showtimes",
     },
     cinema: {
         type: Schema.Types.ObjectId,
         ref: "Cinema",
-        back_populates: "movie_showtimes",
+        // back_populates: "movie_showtimes",
     },
     tickets: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Ticket",
         },
     ],

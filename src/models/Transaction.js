@@ -7,9 +7,9 @@ const TransactionSchema = new Schema({
     new_coin: Number,
     date: { type: Date, default: Date.now },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
-        back_populates: "transactions",
+        // back_populates: "transactions",
     },
 });
 

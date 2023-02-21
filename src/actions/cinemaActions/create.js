@@ -9,7 +9,6 @@ const checkSupplier = async (id) => {
     }
 
     const supplierExists = await Supplier.findById(`${id}`).lean();
-    console.log(supplierExists)
 
     if (!supplierExists) {
         throw new Error("Nhà cung cấp không tồn tại");
@@ -51,8 +50,7 @@ module.exports = async (args) => {
 
     const newCinema = await Cinema.create(query);
 
-    supplier.cinemas.push(newCinema._id)
-    await supplier.save()
+    // await Supplier.findByIdAndUpdate(id_supplier, { cinemas: { $push: newCinema._id } })
 
     return newCinema
 };

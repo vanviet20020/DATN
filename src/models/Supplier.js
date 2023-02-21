@@ -7,7 +7,7 @@ const SupplierSchema = new Schema({
     image_ticket_price: { type: String, required: true },
     cinemas: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Cinema",
         },
     ],

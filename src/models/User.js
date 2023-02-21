@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     is_admin: { type: Boolean, default: false },
     tickets: [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Ticket",
         },
     ],

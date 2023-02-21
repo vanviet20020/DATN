@@ -10,7 +10,7 @@ const CinemaSchema = new Schema({
     supplier: {
         type: Schema.Types.ObjectId,
         ref: "Supplier",
-        back_populates: "cinemas",
+        // back_populates: "cinemas",
     },
     movie_showtimes: [
         {
