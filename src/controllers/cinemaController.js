@@ -18,9 +18,8 @@ exports.update = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-    const agrs = Object.assign({}, req.body, req.params);
 
-    CinemaActions.delete(agrs)
+    CinemaActions.delete(req.params.id)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };

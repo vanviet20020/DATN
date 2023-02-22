@@ -50,7 +50,7 @@ module.exports = async (args) => {
 
     const newCinema = await Cinema.create(query);
 
-    // await Supplier.findByIdAndUpdate(id_supplier, { cinemas: { $push: newCinema._id } })
+    await Supplier.findByIdAndUpdate(id_supplier, { cinemas: { $push: newCinema._id } })
 
     return newCinema
 };
