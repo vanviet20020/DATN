@@ -11,12 +11,13 @@ const TicketSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "MovieShowtime",
         // back_populates: "tickets",
-    },
-    created_at: {
-        type: Date,
-        default: Date.now
     }
-});
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
+})
 
 const Ticket = mongoose.model("Ticket", TicketSchema);
 

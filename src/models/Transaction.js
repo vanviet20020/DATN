@@ -8,9 +8,12 @@ const TransactionSchema = new Schema({
     date: { type: Date, default: Date.now },
     user: {
         type: Schema.Types.ObjectId,
-        ref: "User",
-        // back_populates: "transactions",
+        ref: "User"
     },
+}, {
+    timestamps: {
+        "createdAt": "created_at"
+    }
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);

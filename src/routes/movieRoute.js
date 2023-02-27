@@ -9,7 +9,7 @@ const movieController = require("../controllers/movieController");
 
 const router = express.Router();
 
-router.post('/create', uploadFileMiddleware, movieController.create)
+router.post('/create', authMiddleware.isAdmin, uploadFileMiddleware, movieController.create)
 router.put('/update/:id', uploadFileMiddleware, movieController.update)
 router.delete('/delete/:id', movieController.delete)
 module.exports = router

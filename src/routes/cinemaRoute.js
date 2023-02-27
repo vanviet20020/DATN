@@ -6,7 +6,7 @@ const cinemaController = require("../controllers/cinemaController");
 
 const router = express.Router();
 
-router.post("/create", authMiddleware.isAdmin, cinemaController.create);
+router.post("/create", cinemaController.create);
 router.put("/update/:id", cinemaController.update);
 router.delete("/delete", cinemaController.delete);
 
