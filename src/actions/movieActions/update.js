@@ -37,7 +37,7 @@ module.exports = async (args, file) => {
         release_date,
         runtime,
         language,
-        genre,
+        genre
     } = args;
 
     if (!Types.ObjectId.isValid(`${id}`)) {
@@ -48,7 +48,7 @@ module.exports = async (args, file) => {
 
     await checkName(id, name);
 
-    const newMovie = {
+    const query = {
         name,
         image: "img/uploads/" + file.filename,
         trailer_link,
@@ -58,8 +58,10 @@ module.exports = async (args, file) => {
         release_date,
         runtime,
         language,
-        genre,
+        genre
     };
 
-    return Movie.findByIdAndUpdate(id, newMovie, { new: true }).lean();
+    const updateMovie = await Movie.findByIdAndUpdate(id, query, { new: true }).lean();
+
+    return updateMovie
 };

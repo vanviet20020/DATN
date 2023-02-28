@@ -30,7 +30,7 @@ const checkName = async (name) => {
 module.exports = async (args) => {
     const { id_supplier, name, address, disctrict, hotline, lat, lng } = args;
 
-    const supplier = await checkSupplier(id_supplier);
+    await checkSupplier(id_supplier);
 
     await checkName(name);
 
@@ -49,8 +49,6 @@ module.exports = async (args) => {
     };
 
     const newCinema = await Cinema.create(query);
-
-    await Supplier.findByIdAndUpdate(id_supplier, { $push: { cinemas: newCinema._id } })
 
     return newCinema
 };

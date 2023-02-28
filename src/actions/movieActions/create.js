@@ -27,7 +27,7 @@ module.exports = async (args, file) => {
 
     const query = {
         name,
-        image: 'img/uploads' + file.filename,
+        image: `img/uploads ${file.filename}`,
         trailer_link,
         description,
         director, cast, release_date, runtime, language, genre

@@ -2,7 +2,7 @@ const UserActions = require("../actions/userActions");
 const { sendSuccess, sendError } = require("../helpers/sendReponse");
 
 exports.signUp = async (req, res, next) => {
-    const agrs = Object.assign({}, req.body, req.params);
+    const agrs = Object.assign({}, req.params, req.body);
 
     UserActions.signUp(agrs)
         .then(sendSuccess(req, res))
@@ -14,7 +14,7 @@ exports.loginForm = (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-    const agrs = Object.assign({}, req.body, req.params);
+    const agrs = Object.assign({}, req.params, req.body);
 
     const data = await UserActions.login(agrs);
 

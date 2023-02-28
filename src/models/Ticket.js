@@ -5,11 +5,13 @@ const TicketSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
+        require: true
         // back_populates: "tickets",
     },
     movie_showtime: {
         type: Schema.Types.ObjectId,
         ref: "MovieShowtime",
+        require: true
         // back_populates: "tickets",
     }
 }, {

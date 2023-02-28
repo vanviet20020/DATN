@@ -10,15 +10,21 @@ const CinemaSchema = new Schema({
     supplier: {
         type: Schema.Types.ObjectId,
         ref: "Supplier",
+        require: true
         // back_populates: "cinemas",
     },
-    movie_showtimes: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "MovieShowtime",
-        },
-    ],
-});
+    // movie_showtimes: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: "MovieShowtime",
+    //     },
+    // ],
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+})
 
 const Cinema = mongoose.model("Cinema", CinemaSchema);
 

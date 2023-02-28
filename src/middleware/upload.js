@@ -35,12 +35,12 @@ const upload = multer({
 })
 
 function uploadFile(req, res, next) {
-    upload.single('image')(req, res, function (err) {
+    upload.single("image")(req, res, function (err) {
         if (err instanceof multer.MulterError) {
-            res.status(400).send('Error uploading file. Please try again.');
+            res.status(400).send("Error uploading file. Please try again.");
         } else if (err) {
             console.log(err)
-            res.status(500).send('Internal server error.');
+            res.status(500).send("Internal server error.");
         } else {
             next();
         }

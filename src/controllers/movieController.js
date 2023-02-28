@@ -11,6 +11,14 @@ exports.create = async (req, res, next) => {
         .catch(sendError(req, res));
 }
 
+exports.getById = async (req, res, next) => {
+    const { id } = req.params
+
+    MovieActions.getById(id)
+        .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
+}
+
 exports.update = async (req, res, next) => {
     const args = Object.assign({}, req.params, req.body)
     const file = req.file

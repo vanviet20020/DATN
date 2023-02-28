@@ -64,7 +64,7 @@ module.exports = async (args) => {
         coordinates: [lat, lng],
     };
 
-    const newCinema = {
+    const query = {
         supplier: id_supplier,
         name,
         address,
@@ -73,5 +73,7 @@ module.exports = async (args) => {
         location,
     };
 
-    return Cinema.findByIdAndUpdate(id, newCinema, { new: true });
+    const updateCineme = await Cinema.findByIdAndUpdate(id, query, { new: true }).lean();
+
+    return updateCineme
 };

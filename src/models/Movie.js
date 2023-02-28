@@ -13,13 +13,18 @@ const MovieSchema = new Schema({
     language: String,
     genre: String,
     status: { type: Boolean, default: true },
-    movie_showtimes: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "MovieShowtime",
-        },
-    ],
-});
+    // movie_showtimes: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: "MovieShowtime",
+    //     },
+    // ],
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+})
 
 const Movie = mongoose.model("Movie", MovieSchema);
 

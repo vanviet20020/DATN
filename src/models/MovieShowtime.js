@@ -8,20 +8,27 @@ const MovieShowtimeSchema = new Schema({
     movie: {
         type: Schema.Types.ObjectId,
         ref: "Movie",
+        require: true
         // back_populates: "movie_showtimes",
     },
     cinema: {
         type: Schema.Types.ObjectId,
         ref: "Cinema",
+        require: true
         // back_populates: "movie_showtimes",
     },
-    tickets: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Ticket",
-        },
-    ],
-});
+    // tickets: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: "Ticket",
+    //     },
+    // ],
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+})
 
 const MovieShowtime = mongoose.model("MovieShowtime", MovieShowtimeSchema);
 

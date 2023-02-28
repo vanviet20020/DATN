@@ -2,7 +2,7 @@ const { Types } = require("mongoose");
 
 const Movie = require("../../models/Movie");
 
-const checkCinema = async (id) => {
+const getCinema = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error("ID rạp chiếu phim không hợp lệ");
     }
@@ -13,11 +13,7 @@ const checkCinema = async (id) => {
         throw new Error("Rạp chiếu phim không tồn tại");
     }
 
-    return true;
+    return cinemaExists;
 };
 
-module.exports = async (id) => {
-    await checkCinema(id);
-
-    return Movie.findByIdAndDelete(id).lean();
-};
+module.exports = async (id) => { getCinema(id) }

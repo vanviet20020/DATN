@@ -5,13 +5,18 @@ const SupplierSchema = new Schema({
     name: { type: String, required: true },
     ticket_price: { type: Number, required: true },
     image_ticket_price: { type: String, required: true },
-    cinemas: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Cinema",
-        },
-    ],
-});
+    // cinemas: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: "Cinema",
+    //     },
+    // ],
+}, {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+})
 
 const Supplier = mongoose.model("Supplier", SupplierSchema);
 
