@@ -1,9 +1,9 @@
-const Movie = require("../../models/Movie")
+const Movie = require('../../models/Movie');
 
 module.exports = async (args) => {
-    const { data } = args
+    const { data } = args;
 
-    let query
+    let query;
 
     if (data) {
         query = {
@@ -11,13 +11,13 @@ module.exports = async (args) => {
                 { name: { $regex: data } },
                 { director: { $regex: data } },
                 { cast: { $regex: data } },
-            ]
-        }
+            ],
+        };
     } else {
-        query = {}
+        query = {};
     }
 
-    const movies = await Movie.find(query).lean()
+    const movies = await Movie.find(query).lean();
 
-    return movies
-}
+    return movies;
+};

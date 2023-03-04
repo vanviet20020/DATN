@@ -1,17 +1,17 @@
-const { Types } = require("mongoose");
+const { Types } = require('mongoose');
 
-const Cinema = require("../../models/Cinema");
-const Supplier = require("../../models/Supplier");
+const Cinema = require('../../models/Cinema');
+const Supplier = require('../../models/Supplier');
 
 const checkSupplier = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error("ID supplier không hợp lệ");
+        throw new Error('ID supplier không hợp lệ');
     }
 
     const supplierExists = await Supplier.findById(`${id}`).lean();
 
     if (!supplierExists) {
-        throw new Error("Nhà cung cấp không tồn tại");
+        throw new Error('Nhà cung cấp không tồn tại');
     }
 
     return supplierExists;
@@ -21,7 +21,7 @@ const checkName = async (name) => {
     const namelExists = await Cinema.findOne({ name }).lean();
 
     if (namelExists) {
-        throw new Error("Rạp chiếu phim đã tồn tại!");
+        throw new Error('Rạp chiếu phim đã tồn tại!');
     }
 
     return true;
@@ -35,7 +35,7 @@ module.exports = async (args) => {
     await checkName(name);
 
     const location = {
-        type: "Point",
+        type: 'Point',
         coordinates: [lat, lng],
     };
 
@@ -50,5 +50,5 @@ module.exports = async (args) => {
 
     const newCinema = await Cinema.create(query);
 
-    return newCinema
+    return newCinema;
 };

@@ -1,26 +1,29 @@
-const { Types } = require("mongoose");
+const { Types } = require('mongoose');
 
-const Movie = require("../../models/Movie");
+const Movie = require('../../models/Movie');
 
 const checkMovie = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error("ID phim không hợp lệ");
+        throw new Error('ID phim không hợp lệ');
     }
 
     const movieExists = await Movie.findById(`${id}`).lean();
 
     if (!movieExists) {
-        throw new Error("Phim không tồn tại");
+        throw new Error('Phim không tồn tại');
     }
 
     return true;
 };
 
 const checkName = async (id, name) => {
-    const namelExists = await Movie.findOne({ name, _id: { $ne: `${id}` } }).lean();
+    const namelExists = await Movie.findOne({
+        name,
+        _id: { $ne: `${id}` },
+    }).lean();
 
     if (namelExists) {
-        throw new Error("Bộ phim đã tồn tại!");
+        throw new Error('Bộ phim đã tồn tại!');
     }
 
     return true;
@@ -37,20 +40,20 @@ module.exports = async (args, file) => {
         release_date,
         runtime,
         language,
-        genre
+        genre,
     } = args;
 
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error("ID supplier không hợp lệ");
+        throw new Error('ID supplier không hợp lệ');
     }
 
-    await checkMovie(id)
+    await checkMovie(id);
 
     await checkName(id, name);
 
     const query = {
         name,
-        image: "img/uploads/" + file.filename,
+        image: 'img/uploads/' + file.filename,
         trailer_link,
         description,
         director,
@@ -58,10 +61,12 @@ module.exports = async (args, file) => {
         release_date,
         runtime,
         language,
-        genre
+        genre,
     };
 
-    const updateMovie = await Movie.findByIdAndUpdate(id, query, { new: true }).lean();
+    const updateMovie = await Movie.findByIdAndUpdate(id, query, {
+        new: true,
+    }).lean();
 
-    return updateMovie
+    return updateMovie;
 };

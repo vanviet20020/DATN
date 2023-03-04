@@ -1,35 +1,35 @@
-const MovieActions = require("../actions/movieActions");
-const { sendSuccess, sendError } = require("../helpers/sendReponse");
+const MovieActions = require('../actions/movieActions');
+const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.create = async (req, res, next) => {
-    const args = Object.assign({}, req.params, req.body)
+    const args = Object.assign({}, req.params, req.body);
 
-    const file = req.file
+    const file = req.file;
 
     MovieActions.create(args, file)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
-}
+};
 
 exports.getById = async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.params;
 
     MovieActions.getById(id)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
-}
+};
 
 exports.update = async (req, res, next) => {
-    const args = Object.assign({}, req.params, req.body)
-    const file = req.file
+    const args = Object.assign({}, req.params, req.body);
+    const file = req.file;
 
     MovieActions.update(args, file)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
-}
+};
 
 exports.delete = async (req, res, next) => {
     MovieActions.delete(req.params.id)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
-}
+};

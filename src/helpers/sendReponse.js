@@ -1,24 +1,24 @@
-exports.sendSuccess = (req, res) => result => {
+exports.sendSuccess = (req, res) => (result) => {
     return res.send({
         success: res.success !== undefined ? res.success : true,
-        data: result
-    })
-}
+        data: result,
+    });
+};
 
-exports.sendError = (req, res) => error => {
-    console.error('ERROR', error)
+exports.sendError = (req, res) => (error) => {
+    console.error('ERROR', error);
 
-    const message = typeof error === 'string' ? error : error.message || ''
-    const code = error.code || false
+    const message = typeof error === 'string' ? error : error.message || '';
+    const code = error.code || false;
 
     const result = {
         success: false,
-        message
-    }
+        message,
+    };
 
     if (code) {
-        result.code = code
+        result.code = code;
     }
 
-    res.send(result)
-}
+    res.send(result);
+};

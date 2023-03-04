@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 
-const User = require("../../models/User");
+const User = require('../../models/User');
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -9,18 +9,17 @@ module.exports = async (args) => {
 
     const emailExists = await User.findOne({ email }).lean();
     if (emailExists) {
-        throw new Error("Email đã tồn tại!");
+        throw new Error('Email đã tồn tại!');
     }
 
     if (phone_number && phone_number.length != 10) {
-        throw new Error("Số điện thoại phải là 10 số");
+        throw new Error('Số điện thoại phải là 10 số');
     }
-
 
     if (phone_number) {
         const phoneNumberExists = await User.findOne({ phone_number }).lean();
         if (phoneNumberExists) {
-            throw new Error("Số điện thoại đã tồn tại!");
+            throw new Error('Số điện thoại đã tồn tại!');
         }
     }
 

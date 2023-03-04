@@ -1,5 +1,5 @@
-const UserActions = require("../actions/userActions");
-const { sendSuccess, sendError } = require("../helpers/sendReponse");
+const UserActions = require('../actions/userActions');
+const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.signUp = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
@@ -10,7 +10,7 @@ exports.signUp = async (req, res, next) => {
 };
 
 exports.loginForm = (req, res, next) => {
-    return res.render("user/login", { title: "Đăng nhập" });
+    return res.render('user/login', { title: 'Đăng nhập' });
 };
 
 exports.login = async (req, res, next) => {
@@ -20,12 +20,12 @@ exports.login = async (req, res, next) => {
 
     const { token, message } = data;
 
-    res.cookie("token", token, { maxAge: 900000, httpOnly: true });
+    res.cookie('token', token, { maxAge: 900000, httpOnly: true });
 
     return res.send({ message });
 };
 
 exports.logout = (req, res, next) => {
-    res.cookie("token", "", { expires: new Date(0) });
-    return res.send({ message: "Đăng xuất thành công" });
+    res.cookie('token', '', { expires: new Date(0) });
+    return res.send({ message: 'Đăng xuất thành công' });
 };

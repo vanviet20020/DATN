@@ -1,10 +1,10 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-const User = require("../../models/User");
+const User = require('../../models/User');
 
-const secret_key = process.env.SECRET_KEY || "Viet";
+const secret_key = process.env.SECRET_KEY || 'Viet';
 
 const checkUser = async (user, password) => {
     const match = await bcrypt.compare(password, user.password);
@@ -12,7 +12,7 @@ const checkUser = async (user, password) => {
     if (match) {
         return true;
     }
-    throw new Error("Mật khẩu không chính xác!");
+    throw new Error('Mật khẩu không chính xác!');
 };
 
 module.exports = async (args) => {
@@ -21,7 +21,7 @@ module.exports = async (args) => {
     const user = await User.findOne({ email }).lean();
 
     if (!user || user.length == 0) {
-        throw new Error("Email không chính xác!");
+        throw new Error('Email không chính xác!');
     }
 
     await checkUser(user, password);
@@ -38,9 +38,9 @@ module.exports = async (args) => {
     if (token) {
         return {
             token,
-            message: "Đăng nhập thành công",
+            message: 'Đăng nhập thành công',
         };
     } else {
-        return { message: "Đăng nhập không thành công" };
+        return { message: 'Đăng nhập không thành công' };
     }
 };

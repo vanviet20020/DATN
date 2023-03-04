@@ -1,23 +1,21 @@
-const { Types } = require("mongoose");
+const { Types, get } = require('mongoose');
 
-const Cinema = require("../../models/Cinema")
+const Cinema = require('../../models/Cinema');
 
-const checkCinema = async (id) => {
+const getCinema = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error("ID phim không hợp lệ");
+        throw new Error('ID phim không hợp lệ');
     }
 
     const cinemaExists = await Cinema.findById(`${id}`).lean();
 
     if (!cinemaExists) {
-        throw new Error("Phim không tồn tại");
+        throw new Error('Phim không tồn tại');
     }
 
     return cinemaExists;
 };
 
 module.exports = async (id) => {
-    await checkCinema(id)
-
-    Cinema.findById(id).lean()
-}
+    getCinema(id);
+};

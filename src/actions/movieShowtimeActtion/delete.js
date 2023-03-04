@@ -1,16 +1,16 @@
-const { Types } = require("mongoose");
+const { Types } = require('mongoose');
 
-const MovieShowtime = require("../../models/MovieShowtime");
+const MovieShowtime = require('../../models/MovieShowtime');
 
 const checkMovieShowtime = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error("ID Phim không hợp lệ");
+        throw new Error('ID Phim không hợp lệ');
     }
 
     const movieShowtimesExists = await Movie.findById(id).lean();
 
     if (!movieShowtimesExists) {
-        throw new Error("Phim không tồn tại");
+        throw new Error('Phim không tồn tại');
     }
 
     return true;
