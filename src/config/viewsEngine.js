@@ -14,9 +14,14 @@ let viewEngine = (app) => {
             extname: '.hbs',
             helpers: {
                 block: function (name) {
-                    var blocks = this._blocks,
-                        content = blocks && blocks[name];
+                    const blocks = this._blocks;
+                    content = blocks && blocks[name];
                     return content ? content.join('\n') : null;
+                },
+                contentFor: function (name, options) {
+                    var blocks = this._blocks || (this._blocks = {});
+                    block = blocks[name] || (blocks[name] = []); //Changed this to [] instead of {}
+                    block.push(options.fn(this));
                 },
             },
         }),
