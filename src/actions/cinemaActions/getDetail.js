@@ -1,34 +1,24 @@
-const { Types } = require('mongoose');
-
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
-
-const checkCinema = async (id) => {
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID phim không hợp lệ');
-    }
-
-    const cinemaExists = await Cinema.findById(`${id}`).lean();
-
-    if (!cinemaExists) {
-        throw new Error('Phim không tồn tại');
-    }
-
-    return true;
-};
+const checkDataExists = require('../../helpers/checkDataExists');
 
 module.exports = async (id) => {
-    await checkCinema(id);
+    await checkDataExists('Cinema', 'Rạp chiếu phim', id);
 
-    return Cinema.findById(id)
+    const cinema = await Cinema.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).populate({
+        path: 'supplier',
+        model: 'Supplier',
+    });
+
+    const movieShowtimes = await MovieShowtime.find({
+        cinema: cinema._id,
+    })
         .populate({
-            path: 'supplier',
+            path: 'movie',
         })
-        .populate({
-            path: 'movie_shotimes',
-            model: 'MovieShowtime',
-            populate: {
-                path: 'movie',
-            },
-        });
+        .sort({ date: -1 });
+    return { cinema, movieShowtimes };
 };

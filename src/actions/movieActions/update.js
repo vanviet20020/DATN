@@ -1,29 +1,15 @@
-const { Types } = require('mongoose');
-
 const Movie = require('../../models/Movie');
-
-const checkMovie = async (id) => {
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID phim không hợp lệ');
-    }
-
-    const movieExists = await Movie.findById(`${id}`).lean();
-
-    if (!movieExists) {
-        throw new Error('Phim không tồn tại');
-    }
-
-    return true;
-};
+const checkDataExists = require('../../helpers/checkDataExists');
 
 const checkName = async (id, name) => {
     const namelExists = await Movie.findOne({
         name,
         _id: { $ne: `${id}` },
+        is_deleted: { $ne: true },
     }).lean();
 
     if (namelExists) {
-        throw new Error('Bộ phim đã tồn tại!');
+        throw new Error('Phim đã tồn tại!');
     }
 
     return true;
@@ -47,7 +33,7 @@ module.exports = async (args, file) => {
         throw new Error('ID supplier không hợp lệ');
     }
 
-    await checkMovie(id);
+    await checkDataExists('Movie', 'Phim', id);
 
     await checkName(id, name);
 

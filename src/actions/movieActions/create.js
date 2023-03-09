@@ -1,7 +1,10 @@
 const Movie = require('../../models/Movie');
 
 const checkName = async (name) => {
-    const namelExists = await Movie.findOne({ name }).lean();
+    const namelExists = await Movie.findOne({
+        name,
+        is_deleted: { $ne: true },
+    }).lean();
 
     if (namelExists) {
         throw new Error('Bộ phim đã tồn tại!');

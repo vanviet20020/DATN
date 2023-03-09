@@ -1,67 +1,38 @@
 const Cinema = require('../../models/Cinema');
+const Supplier = require('../../models/Cinema');
+const checkDataExists = require('../../helpers/checkDataExists');
 
 const validateQuery = (args) => {
-    const { page, limit } = args;
+    const { name, district, supplier } = args;
 
-    const vLimit = limit > 0 ? parseInt(limit, 10) : 20;
+    const query = {};
 
-    const vPage = page > 1 ? parseInt(page, 10) : 1;
+    if (name && name.length) {
+        Object.assign(query, { name });
+    }
 
-    const skip = (vPage - 1) * vLimit;
+    if (district && district.length) {
+        Object.assign(query, { district });
+    }
 
-    const pagination = [
-        { $sort: { updated_at: -1 } },
-        { $skip: skip },
-        { $limit: vLimit },
-    ];
+    if (supplier && supplier.length) {
+        Object.assign(query, { supplier });
+    }
 
-    const name = args.name ? [{ $match: { name: { $regex: args.name } } }] : [];
-
-    const disctrict = args.disctrict
-        ? [{ $match: { disctrict: args.disctrict } }]
-        : [];
-
-    const filterNameSupplier = args.name_supplier
-        ? [{ $eq: ['$name', args.name_supplier] }]
-        : [];
-
-    const aggregate = [
-        ...name,
-        ...disctrict,
-        {
-            $lookup: {
-                from: 'suppliers',
-                let: { id_supplier: '$supplier' },
-                pipeline: [
-                    {
-                        $match: {
-                            $expr: {
-                                $and: [
-                                    { $eq: ['$$id_supplier', '$_id'] },
-                                    ...filterNameSupplier,
-                                ],
-                            },
-                        },
-                    },
-                ],
-                as: 'supplier',
-            },
-        },
-        { $match: { supplier: { $gt: ['$size', 0] } } },
-    ];
-
-    return { aggregate, pagination };
+    return query;
 };
-
 module.exports = async (args) => {
-    const { aggregate, pagination } = validateQuery(args);
+    const suppliers = await Supplier.find().lean();
 
-    const total = await Cinema.aggregate([
-        ...aggregate,
-        { $count: 'number' },
-    ]).then((res) => (res[0] ? res[0].number : 0));
+    const id_supplier = args.id_supplier;
 
-    const cinemas = await Cinema.aggregate([...aggregate, ...pagination]);
+    if (id_supplier && id_supplier.length) {
+        await checkDataExists('Supplier', 'Nhà cung cấp', id_supplier);
+    }
 
-    return { total, cinemas };
+    const query = validateQuery(args);
+
+    const cinemas = await Cinema.find(query).lean().sort({ district: 1 });
+
+    return { cinemas, suppliers };
 };

@@ -5,14 +5,13 @@ const CinemaSchema = new Schema(
     {
         name: { type: String, unique: true },
         address: { type: String, required: true },
-        disctrict: { type: String, required: true },
+        district: { type: String, required: true },
         hotline: String,
         location: { type: Schema.Types.Mixed, required: true },
         supplier: {
             type: Schema.Types.ObjectId,
             ref: 'Supplier',
             require: true,
-            // back_populates: "cinemas",
         },
         // movie_showtimes: [
         //     {

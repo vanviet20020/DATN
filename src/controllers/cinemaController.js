@@ -10,25 +10,29 @@ exports.create = async (req, res, next) => {
 };
 
 exports.search = async (req, res, next) => {
-    const agrs = Object.assign({}, req.params, req.body);
+    const agrs = Object.assign({}, req.params, req.body, req.query);
 
     CinemaActions.search(agrs)
-        .then(sendSuccess(req, res))
-        .catch(sendError(req, res));
+        .then(({ cinemas, suppliers }) => {
+            res.render('Cinema/search', {
+                title: 'Tất cả các rạp',
+                cinemas,
+                suppliers,
+            });
+        })
+        .catch((err) => {
+            res.redirect('/cinemas/search', 500);
+        });
 };
 
 exports.getDetail = async (req, res, next) => {
-    const { id } = req.params;
-
-    CinemaActions.getDetail(agrs)
+    CinemaActions.getDetail(req.query.id)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };
 
 exports.getById = async (req, res, next) => {
-    const { id } = req.params;
-
-    CinemaActions.getById(id)
+    CinemaActions.getById(req.params.id)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };

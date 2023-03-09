@@ -1,0 +1,27 @@
+<label>Khu vực</label>
+<select id="districts" name="district" class="form-control"></select>
+
+<script>
+    const districts = [
+        { name: 'Tất cả', value: '' },
+        { name: 'Hoàn Kiếm', value: 'hoan-kiem' },
+        { name: 'Đống Đa', value: 'dong-da' },
+        { name: 'Ba Đình', value: 'ba-dinh' },
+        { name: 'Hai Bà Trưng', value: 'hai-ba-trung' },
+        { name: 'Hoàng Mai', value: 'hoang-mai' },
+        { name: 'Thanh Xuân', value: 'thanh-xuan' },
+        { name: 'Tây Hồ', value: 'tay-ho' },
+        { name: 'Cầu Giấy', value: 'cau-giay' },
+        { name: 'Long Biên', value: 'long-bien' },
+        { name: 'Nam Từ Liêm', value: 'nam-tu-liem' },
+        { name: 'Bắc Từ Liêm', value: 'bac-tu-liem' },
+        { name: 'Hà Đông', value: 'ha-dong' }
+    ];
+    const select = document.getElementById('districts');
+    districts.forEach((district) => {
+        const option = document.createElement('option');
+        option.value = district.value;
+        option.text = district.name;
+        select.appendChild(option);
+    });
+</script>

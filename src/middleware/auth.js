@@ -1,14 +1,35 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+const User = require('../models/User');
+
 const secret_key = process.env.SECRET_KEY || 'Viet';
 
-exports.requireLogin = (req, res, next) => {
+exports.requireLogin = async (req, res, next) => {
     if (req.cookies && req.cookies.token) {
-        next();
+        const token = req.cookies.token;
+        try {
+            const decoded = jwt.verify(token, secret_key);
+
+            const user = await User.findOne({ email: decoded.email });
+
+            if (!user) {
+                throw new Error();
+            }
+
+            // Lưu thông tin người dùng vào đối tượng req để các controller sau có thể truy cập
+            req.user = user;
+            next();
+        } catch (err) {
+            return res.status(401).send({
+                error: 'Bạn cần đăng nhập để thực hiện thao tác này',
+            });
+        }
     } else {
-        res.redirect('/login-form');
+        // return res.redirect('/login-form');
+        return res.status(401).send({
+            error: 'Bạn cần đăng nhập để thực hiện thao tác này',
+        });
     }
 };
 

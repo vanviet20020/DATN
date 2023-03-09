@@ -6,11 +6,11 @@ const cinemaController = require('../controllers/cinemaController');
 
 const router = express.Router();
 
-router.post('/create', cinemaController.create);
+router.post('/create', authMiddleware.isAdmin, cinemaController.create);
 router.get('/search', cinemaController.search);
 router.get('/:name', cinemaController.getDetail);
-router.get('/update/:id', cinemaController.getById);
-router.put('/update/:id', cinemaController.update);
-router.delete('/delete', cinemaController.delete);
+router.get('/update/:id', authMiddleware.isAdmin, cinemaController.getById);
+router.put('/update/:id', authMiddleware.isAdmin, cinemaController.update);
+router.delete('/delete', authMiddleware.isAdmin, cinemaController.delete);
 
 module.exports = router;

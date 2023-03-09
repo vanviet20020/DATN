@@ -12,6 +12,7 @@ const checkUser = async (user, password) => {
     if (match) {
         return true;
     }
+
     throw new Error('Mật khẩu không chính xác!');
 };
 

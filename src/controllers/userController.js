@@ -1,6 +1,10 @@
 const UserActions = require('../actions/userActions');
 const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
+exports.signUpForm = (req, res, next) => {
+    return res.render('user/signUp', { title: 'Đăng kí' });
+};
+
 exports.signUp = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 

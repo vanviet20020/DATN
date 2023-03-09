@@ -7,7 +7,7 @@ const UserSchema = new Schema(
         email: { type: String, unique: true, required: true },
         password: { type: String, required: true },
         phone_number: { type: String, unique: true },
-        coin: Number,
+        coin: { type: Number, default: 0 },
         is_admin: { type: Boolean, default: false },
         tickets: [
             {
@@ -17,7 +17,7 @@ const UserSchema = new Schema(
         ],
         transactions: [
             {
-                type: mongoose.Schema.Types.ObjectId,
+                type: Schema.Types.ObjectId,
                 ref: 'Transaction',
             },
         ],

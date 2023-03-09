@@ -1,21 +1,8 @@
-const { Types, get } = require('mongoose');
-
-const Cinema = require('../../models/Cinema');
-
-const getCinema = async (id) => {
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID phim không hợp lệ');
-    }
-
-    const cinemaExists = await Cinema.findById(`${id}`).lean();
-
-    if (!cinemaExists) {
-        throw new Error('Phim không tồn tại');
-    }
-
-    return cinemaExists;
-};
+const Supplier = require('../../models/Supplier');
+const getCinema = require('../../helpers/getDataExists');
 
 module.exports = async (id) => {
-    getCinema(id);
+    const suppliers = Supplier.find({ is_deleted: { $ne: true } }).lean();
+    const cinema = getCinema('Cinema', 'Rạp chiếu phim', id);
+    return { cinema, suppliers };
 };

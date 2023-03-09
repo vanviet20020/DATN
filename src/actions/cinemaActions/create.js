@@ -1,24 +1,11 @@
-const { Types } = require('mongoose');
-
 const Cinema = require('../../models/Cinema');
-const Supplier = require('../../models/Supplier');
-
-const checkSupplier = async (id) => {
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID supplier không hợp lệ');
-    }
-
-    const supplierExists = await Supplier.findById(`${id}`).lean();
-
-    if (!supplierExists) {
-        throw new Error('Nhà cung cấp không tồn tại');
-    }
-
-    return supplierExists;
-};
+const checkDataExists = require('../../helpers/checkDataExists');
 
 const checkName = async (name) => {
-    const namelExists = await Cinema.findOne({ name }).lean();
+    const namelExists = await Cinema.findOne({
+        name,
+        is_deleted: { $ne: true },
+    }).lean();
 
     if (namelExists) {
         throw new Error('Rạp chiếu phim đã tồn tại!');
@@ -28,10 +15,9 @@ const checkName = async (name) => {
 };
 
 module.exports = async (args) => {
-    const { id_supplier, name, address, disctrict, hotline, lat, lng } = args;
+    const { id_supplier, name, address, district, hotline, lat, lng } = args;
 
-    await checkSupplier(id_supplier);
-
+    await checkDataExists('Supplier', 'Nhà cung cấp', id_supplier);
     await checkName(name);
 
     const location = {
@@ -43,7 +29,7 @@ module.exports = async (args) => {
         supplier: id_supplier,
         name,
         address,
-        disctrict,
+        district,
         hotline,
         location,
     };
