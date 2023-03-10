@@ -1,15 +1,71 @@
-<form>
-  <div class="mb-3">
-    <label class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+{{#contentFor 'head'}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+{{/contentFor}}
+
+div 
+
+<form action=''>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <select id='supplier' name='supplier' class='form-control'>
+        <label>Nhà cung cấp</label>s
+        <option value='' disabled>Chọn nhà cung cấp</option>
+        {{#each suppliers}}
+            <option value='{{this._id}}'>{{this.name}}</option>
+        {{/each}}
+    </select>
+        </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <label>Tên rạp chiếu</label>
+        <input type='text' ,name='name' class='form-control' placeholder='' />
+    </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <label>Địa chỉ</label>
+        <input
+            type='text'
+            ,name='address'
+            class='form-control'
+            placeholder=''
+        />
+    </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        {{>district}}
+    </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <label>Hotline</label>
+        <input type='text' ,name='' class='form-control' placeholder='' />
+    </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <label>Vĩ độ</label>
+        <input id="lat" type='text' ,name='lat' class='form-control' placeholder='' />
+    </div>
+    <div class='col-md-5 col-sm-5 col-xs-12'>
+        <label>Kinh độ</label>
+        <input id="lng" type='text' ,name='lng' class='form-control' placeholder='' />
+    </div>
+
+    <button type="button" class="btn btn-primary">Tạo mới</button>
 </form>
+
+<script>
+    const mymap = L.map('map').setView(
+        [21.02988144294546, 105.80167329310144],
+        12
+    );
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(mymap);
+
+    mymap.on('click', function (e) {
+        document.querySelector('#lat').value = e.latlng.lat;
+        document.querySelector('#lng').value = e.latlng.lng;
+        let new_cinema = L.marker([e.latlng.lat, e.latlng.lng]);
+        new_cinema.addTo(mymap);
+    });
+</script>
