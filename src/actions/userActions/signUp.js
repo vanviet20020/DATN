@@ -7,7 +7,10 @@ const salt = bcrypt.genSaltSync(10);
 module.exports = async (args) => {
     const { fullname, email, password, phone_number } = args;
 
-    const emailExists = await User.findOne({ email }).lean();
+    const emailExists = await User.findOne({
+        email,
+        is_deleted: { $ne: true },
+    }).lean();
     if (emailExists) {
         throw new Error('Email đã tồn tại!');
     }

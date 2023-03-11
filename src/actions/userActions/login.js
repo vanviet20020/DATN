@@ -6,7 +6,7 @@ const User = require('../../models/User');
 
 const secret_key = process.env.SECRET_KEY || 'Viet';
 
-const checkUser = async (user, password) => {
+const checkPassword = async (user, password) => {
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
@@ -19,13 +19,16 @@ const checkUser = async (user, password) => {
 module.exports = async (args) => {
     const { email, password } = args;
 
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({
+        email,
+        is_deleted: { $ne: true },
+    }).lean();
 
     if (!user || user.length == 0) {
         throw new Error('Email không chính xác!');
     }
 
-    await checkUser(user, password);
+    await checkPassword(user, password);
 
     const data = {
         fullname: user.fullname,

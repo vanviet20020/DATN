@@ -11,6 +11,6 @@ router.get('/search', cinemaController.search);
 router.get('/:name', cinemaController.getDetail);
 router.get('/update/:id', authMiddleware.isAdmin, cinemaController.getById);
 router.put('/update/:id', authMiddleware.isAdmin, cinemaController.update);
-router.delete('/delete', authMiddleware.isAdmin, cinemaController.delete);
+router.delete('/delete/:id', cinemaController.delete);
 
 module.exports = router;
