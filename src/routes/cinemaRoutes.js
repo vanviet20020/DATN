@@ -6,6 +6,7 @@ const cinemaController = require('../controllers/cinemaController');
 
 const router = express.Router();
 
+router.get('/create-form', cinemaController.createForm);
 router.post('/create', authMiddleware.isAdmin, cinemaController.create);
 router.get('/search', cinemaController.search);
 router.get('/:name', cinemaController.getDetail);
