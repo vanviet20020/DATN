@@ -6,33 +6,89 @@ const Cinema = require('../models/Cinema');
 const Movie = require('../models/Movie');
 const MovieShowtime = require('../models/MovieShowtime');
 
-module.exports = async (modelName, modelNameV, id) => {
+const getUser = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error(`ID ${modelNameV} không hợp lệ`);
+        throw new Error(`ID Người dùng không hợp lệ`);
     }
 
-    let Model;
-    switch (modelName) {
-        case 'User':
-            return (Model = User);
-        case 'Supplier':
-            return (Model = Supplier);
-        case 'Cinema':
-            return (Model = Cinema);
-        case 'Movie':
-            return (Model = Movie);
-        case 'MovieShowtime':
-            return (Model = MovieShowtime);
-    }
-
-    const dataExists = await Model.finOne({
+    const dataExists = await User.finOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
 
     if (!dataExists) {
-        throw new Error(`${modelNameV} không tồn tại`);
+        throw new Error(`Người dùng không tồn tại`);
     }
 
     return dataExists;
-};
+}
+
+const getSupplier = async (id) => {
+    if (!Types.ObjectId.isValid(`${id}`)) {
+        throw new Error(`ID Nhà cung cấp không hợp lệ`);
+    }
+
+    const dataExists = await Supplier.finOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+
+    if (!dataExists) {
+        throw new Error(`Nhà cung cấp không tồn tại`);
+    }
+
+    return dataExists;
+}
+
+const getCinema = async (id) => {
+    if (!Types.ObjectId.isValid(`${id}`)) {
+        throw new Error(`ID Rạp chiếu phim không hợp lệ`);
+    }
+
+    const dataExists = await Cinema.finOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+
+    if (!dataExists) {
+        throw new Error(`Rạp chiếu phim không tồn tại`);
+    }
+
+    return dataExists;
+}
+
+const getMovie = async (id) => {
+    if (!Types.ObjectId.isValid(`${id}`)) {
+        throw new Error(`ID Phim không hợp lệ`);
+    }
+
+    const dataExists = await Movie.finOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+
+    if (!dataExists) {
+        throw new Error(`Phim không tồn tại`);
+    }
+
+    return dataExists;
+}
+
+const getMovieShowtime = async (id) => {
+    if (!Types.ObjectId.isValid(`${id}`)) {
+        throw new Error(`ID Rạp chiếu phim không hợp lệ`);
+    }
+
+    const dataExists = await MovieShowtime.finOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+
+    if (!dataExists) {
+        throw new Error(`Rạp chiếu phim không tồn tại`);
+    }
+
+    return dataExists;
+}
+
+module.exports = { getUser, getSupplier, getCinema, getMovie, getMovieShowtime }

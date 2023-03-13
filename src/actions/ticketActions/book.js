@@ -2,18 +2,14 @@ const User = require('../../models/User');
 const Ticket = require('../../models/Ticket');
 const MovieShowtime = require('../../models/MovieShowtime');
 const Transaction = require('../../models/Transaction');
-const getDataExists = require('../../helpers/getDataExists');
+const { getMovieShowtime } = require('../../helpers/getDataExists');
 
 module.exports = async (id_movie_showtime, numberOfTickets = '1', user) => {
     const session = await mongoose.startSession();
 
     session.startTransaction();
     try {
-        const movieShowtime = await getDataExists(
-            'MovieShowtime',
-            'Lịch chiếu phim',
-            id_movie_showtime,
-        );
+        const movieShowtime = await getMovieShowtime(id_movie_showtime);
 
         const { _id: idUser, coin } = user;
         const { _id: idMovieShowtime, ticket_price, seats } = movieShowtime;

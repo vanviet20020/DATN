@@ -1,8 +1,8 @@
 const Movie = require('../../models/Movie');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { movieExists } = require('../../helpers/checkDataExists');
 
 module.exports = async (id) => {
-    await checkDataExists('Movie', 'Phim', id);
+    return movieExists(id);
 
     return Movie.findByIdAndDelete(id).lean();
 };

@@ -1,5 +1,5 @@
-const getCinema = require('../../helpers/getDataExists');
+const { getCinema } = require('../../helpers/getDataExists');
 
 module.exports = async (id) => {
-    return getCinema('Cinema', 'Rạp chiếu phim', id);
+    return getCinema(id);
 };

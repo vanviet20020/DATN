@@ -1,19 +1,19 @@
-<div class="pagination">
+<div class='pagination'>
     {{#if pages.hasPrevious}}
-    <a href="{{pages.href(true)}}">Đầu tiên</a>
-    <a href="{{pages.href(pages.previous)}}">Trước</a>
+    <a href='{{pages.href(true)}}'>Đầu tiên</a>
+    <a href='{{pages.href(pages.previous)}}'>Trước</a>
     {{/if}}
 
     {{#each pages}}
     {{#if current}}
     <span>{{page}}</span>
     {{else}}
-    <a href="{{href}}">{{page}}</a>
+    <a href='{{href}}'>{{page}}</a>
     {{/if}}
     {{/each}}
 
     {{#if pages.hasNext}}
-    <a href="{{pages.href(pages.next)}}">Sau</a>
-    <a href="{{pages.href(pages.last)}}">Cuối cùng</a>
+    <a href='{{pages.href(pages.next)}}'>Sau</a>
+    <a href='{{pages.href(pages.last)}}'>Cuối cùng</a>
     {{/if}}
 </div>
