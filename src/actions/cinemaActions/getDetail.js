@@ -1,9 +1,9 @@
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { cinemaExists } = require('../../helpers/checkDataExists');
 
 module.exports = async (id) => {
-    await checkDataExists('Cinema', 'Rạp chiếu phim', id);
+    await cinemaExists(id);
 
     const cinema = await Cinema.findOne({
         _id: `${id}`,

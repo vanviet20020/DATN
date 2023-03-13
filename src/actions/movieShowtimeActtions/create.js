@@ -1,6 +1,6 @@
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { movieExists, cinemaExists } = require('../../helpers/checkDataExists');
 
 const checkCinemaAndGetTicketPrice = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
@@ -28,8 +28,8 @@ const checkCinemaAndGetTicketPrice = async (id) => {
 module.exports = async (args) => {
     const { id_movie, id_cinema, date, start_time, seats } = args;
 
-    await checkDataExists('Movie', 'Phim', id);
-    await checkDataExists('Cinema', 'Rạp chiếu phim', id);
+    await movieExists(id_movie);
+    await cinemaExists(id_cinema);
 
     const ticket_price = await checkCinemaAndGetTicketPrice(id_cinema);
 

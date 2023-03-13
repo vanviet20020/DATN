@@ -1,6 +1,6 @@
 const Cinema = require('../../models/Cinema');
 const Supplier = require('../../models/Cinema');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { supllierExists } = require('../../helpers/checkDataExists');
 
 const validateQuery = (args) => {
     const { name, district, supplier } = args;
@@ -22,15 +22,15 @@ const validateQuery = (args) => {
     return query;
 };
 module.exports = async (args) => {
-    const suppliers = await Supplier.find().lean();
-
     const id_supplier = args.id_supplier;
 
     if (id_supplier && id_supplier.length) {
-        await checkDataExists('Supplier', 'Nhà cung cấp', id_supplier);
+        await supllierExists(id_supplier);
     }
 
     const query = validateQuery(args);
+
+    const suppliers = await Supplier.find().lean();
 
     const cinemas = await Cinema.find(query).lean().sort({ district: 1 });
 

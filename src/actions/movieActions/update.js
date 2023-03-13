@@ -1,5 +1,5 @@
 const Movie = require('../../models/Movie');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { movieExists } = require('../../helpers/checkDataExists');
 
 const checkName = async (id, name) => {
     const namelExists = await Movie.findOne({
@@ -29,11 +29,7 @@ module.exports = async (args, file) => {
         genre,
     } = args;
 
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID supplier không hợp lệ');
-    }
-
-    await checkDataExists('Movie', 'Phim', id);
+    await movieExists(id);
 
     await checkName(id, name);
 
