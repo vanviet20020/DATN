@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
 :root {
     --primary-color: #fe025c;
     --primary-btn-color: #3097d1;
@@ -30,7 +32,7 @@ ul {
 .header .container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -200,4 +202,72 @@ ul {
 .content-cinema .list-cinema a {
     text-decoration: none;
     color: #333333;
+}
+
+.title {
+    display: block;
+    font-size: 23px;
+    font-weight: 700;
+    text-transform: uppercase;
+    float: none;
+}
+
+.title a {
+    text-decoration: none;
+    color: #fe7900;
+    ;
+}
+
+.movie-item {
+    width: auto;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-bottom: 20px;
+}
+
+.movie-item .movie-info .movie-thumb {
+    border-bottom: 3px solid #fe7900;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-item .movie-info .movie-thumb a {
+    display: block;
+    position: relative;
+}
+
+.movie-item .movie-info .movie-thumb a img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 37/55;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.movie-item .movie-info .movie-title {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #000;
+    margin: 10px 0 0;
+    line-height: 1.4em;
+    font-weight: lighter;
+}
+
+.movie-item .movie-info .movie-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.movie-item .movie-info .movie-date {
+    font-size: 13px;
+    color: #999;
+}
+
+.movie-item .movie-info {
+    height: 100%;
+}
+
+.movie-item .movie-info .movie-detail {
+    margin-top: auto;
+    margin-bottom: 0;
 }

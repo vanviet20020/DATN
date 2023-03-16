@@ -11,7 +11,7 @@ const getUser = async (id) => {
         throw new Error(`ID Người dùng không hợp lệ`);
     }
 
-    const dataExists = await User.finOne({
+    const dataExists = await User.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -21,14 +21,14 @@ const getUser = async (id) => {
     }
 
     return dataExists;
-}
+};
 
 const getSupplier = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Nhà cung cấp không hợp lệ`);
     }
 
-    const dataExists = await Supplier.finOne({
+    const dataExists = await Supplier.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -38,14 +38,14 @@ const getSupplier = async (id) => {
     }
 
     return dataExists;
-}
+};
 
 const getCinema = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Rạp chiếu phim không hợp lệ`);
     }
 
-    const dataExists = await Cinema.finOne({
+    const dataExists = await Cinema.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -55,14 +55,14 @@ const getCinema = async (id) => {
     }
 
     return dataExists;
-}
+};
 
 const getMovie = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Phim không hợp lệ`);
     }
 
-    const dataExists = await Movie.finOne({
+    const dataExists = await Movie.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -72,14 +72,14 @@ const getMovie = async (id) => {
     }
 
     return dataExists;
-}
+};
 
 const getMovieShowtime = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Rạp chiếu phim không hợp lệ`);
     }
 
-    const dataExists = await MovieShowtime.finOne({
+    const dataExists = await MovieShowtime.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -89,6 +89,12 @@ const getMovieShowtime = async (id) => {
     }
 
     return dataExists;
-}
+};
 
-module.exports = { getUser, getSupplier, getCinema, getMovie, getMovieShowtime }
+module.exports = {
+    getUser,
+    getSupplier,
+    getCinema,
+    getMovie,
+    getMovieShowtime,
+};

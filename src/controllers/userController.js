@@ -31,5 +31,5 @@ exports.login = async (req, res, next) => {
 
 exports.logout = (req, res, next) => {
     res.cookie('token', '', { expires: new Date(0) });
-    return res.send({ message: 'Đăng xuất thành công' });
+    return res.render('/', { message: 'Đăng xuất thành công' });
 };

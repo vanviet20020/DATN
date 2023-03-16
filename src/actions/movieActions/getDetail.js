@@ -1,5 +1,5 @@
 const Movie = require('../../models/Movie');
-const MovieShowtime = require('../../models/Movie');
+const MovieShowtime = require('../../models/MovieShowtime');
 
 const { movieExists } = require('../../helpers/checkDataExists');
 
@@ -21,5 +21,5 @@ module.exports = async (id) => {
             },
         })
         .sort({ date: -1 });
-    return { cinema, movieShowtime };
+    return { movie, movieShowtime };
 };

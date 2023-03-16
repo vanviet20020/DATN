@@ -15,9 +15,9 @@ const checkName = async (name) => {
 };
 
 module.exports = async (args) => {
-    const { id_supplier, name, address, district, hotline, lat, lng } = args;
+    const { supplier, name, address, district, hotline, lat, lng } = args;
 
-    await supllierExists(id_supplier);
+    await supllierExists(supplier);
     await checkName(name);
 
     const location = {
@@ -26,7 +26,7 @@ module.exports = async (args) => {
     };
 
     const query = {
-        supplier: id_supplier,
+        supplier: supplier,
         name,
         address,
         district,

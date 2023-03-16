@@ -11,7 +11,7 @@ const userExists = async (id) => {
         throw new Error(`ID Người dùng không hợp lệ`);
     }
 
-    const dataExists = await User.finOne({
+    const dataExists = await User.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -21,14 +21,15 @@ const userExists = async (id) => {
     }
 
     return true;
-}
+};
 
 const supllierExists = async (id) => {
+    console.log(id);
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Nhà cung cấp không hợp lệ`);
     }
 
-    const dataExists = await Supplier.finOne({
+    const dataExists = await Supplier.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -38,14 +39,14 @@ const supllierExists = async (id) => {
     }
 
     return true;
-}
+};
 
 const cinemaExists = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Rạp chiếu phim không hợp lệ`);
     }
 
-    const dataExists = await Cinema.finOne({
+    const dataExists = await Cinema.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -55,14 +56,14 @@ const cinemaExists = async (id) => {
     }
 
     return true;
-}
+};
 
 const movieExists = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Phim không hợp lệ`);
     }
 
-    const dataExists = await Movie.finOne({
+    const dataExists = await Movie.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -72,14 +73,14 @@ const movieExists = async (id) => {
     }
 
     return true;
-}
+};
 
 const mvieShowtimeExists = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Rạp chiếu phim không hợp lệ`);
     }
 
-    const dataExists = await MovieShowtime.finOne({
+    const dataExists = await MovieShowtime.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
     }).lean();
@@ -89,6 +90,12 @@ const mvieShowtimeExists = async (id) => {
     }
 
     return true;
-}
+};
 
-module.exports = { userExists, supllierExists, cinemaExists, movieExists, mvieShowtimeExists }
+module.exports = {
+    userExists,
+    supllierExists,
+    cinemaExists,
+    movieExists,
+    mvieShowtimeExists,
+};

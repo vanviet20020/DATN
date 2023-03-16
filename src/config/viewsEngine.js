@@ -9,9 +9,9 @@ let viewEngine = (app) => {
 
     // Set Templating Engine
     app.engine(
-        '.hbs',
+        '.html',
         engine({
-            extname: '.hbs',
+            extname: '.html',
             helpers: {
                 block: function (name) {
                     const blocks = this._blocks;
@@ -26,7 +26,7 @@ let viewEngine = (app) => {
             },
         }),
     );
-    app.set('view engine', '.hbs');
+    app.set('view engine', '.html');
     app.set('views', path.join(__dirname, '../../src/views'));
 };
 

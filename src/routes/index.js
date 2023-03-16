@@ -1,3 +1,4 @@
+const otherRoutes = require('./otherRoutes');
 const userRoutes = require('./userRoutes');
 const movieRoutes = require('./movieRoutes');
 const cinemaRoutes = require('./cinemaRoutes');
@@ -10,6 +11,7 @@ const route = (app) => {
     app.use('/cinemas', cinemaRoutes);
     app.use('/movie-showtimes', movieShowtimeRoutes);
     app.use('/tickets', ticketRoutes);
+    app.use('/', otherRoutes);
 };
 
 module.exports = route;

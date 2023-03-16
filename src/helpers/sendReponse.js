@@ -1,5 +1,5 @@
 exports.sendSuccess = (req, res) => (result) => {
-    return res.send({
+    return res.json({
         success: res.success !== undefined ? res.success : true,
         data: result,
     });
