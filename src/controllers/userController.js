@@ -20,10 +20,14 @@ exports.loginForm = (req, res, next) => {
 exports.login = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
-    const data = await UserActions.login(agrs);
+    const data = await UserActions.login(agrs)
+        .then((token, message) => {
+            res.cookie('token', token, { maxAge: 900000, httpOnly: true });
+            return res.send({ message });
+        })
+        .catch(sendError(req, res));
 
     const { token, message } = data;
-
     res.cookie('token', token, { maxAge: 900000, httpOnly: true });
 
     return res.send({ message });

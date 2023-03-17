@@ -21,7 +21,14 @@ exports.search = async (req, res, next) => {
 
 exports.getDetail = async (req, res, next) => {
     MovieActions.getDetail(req.query.id)
-        .then(sendSuccess(req, res))
+        .then(({ movie, movieShowtimes }) => {
+            console.log(movie);
+            res.render('Movie/detail', {
+                title: movie.name,
+                movie,
+                movieShowtimes,
+            });
+        })
         .catch(sendError(req, res));
 };
 

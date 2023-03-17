@@ -1,39 +1,46 @@
-<div class="col-md-12 mt-3">
-    <h1>Tất cả rạp chiếu phim</h1>
-</div>
+{{>header}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-3">
+            <h1>Tất cả rạp chiếu phim</h1>
+        </div>
 
-<form action="/cinemas/search" method="GET" class="col-md-4 col-sm-4 col-xs-12 search-cinema">
-    <label>Hệ thống rạp</label>
-    <select id="supplier" name="supplier" class="form-control">
-        <option value="">Tất cả</option>
-        {{#each suppliers}}
-        <option value="{{this._id}}">{{this.name}}</option>
-        {{/each}}
-    </select>
+        <form action="/cinemas/search" method="GET" class="col-md-4 col-sm-4 col-xs-12 search-cinema">
+            <label>Hệ thống rạp</label>
+            <select id="supplier" name="supplier" class="form-control">
+                <option value="">Tất cả</option>
+                {{#each suppliers}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
 
-    {{>district}}
+            {{>district}}
 
-    <label>Tìm rạp</label>
-    <input type="text" name="name" class="form-control" placeholder="Nhập tên rạp chiếu phim">
+            <label>Tìm rạp</label>
+            <input type="text" name="name" class="form-control" placeholder="Nhập tên rạp chiếu phim">
 
-    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-</form>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
 
-<div class="col-md-8 col-sm-8 col-xs-12 content-cinema">
-    {{#each cinemas}}
-    <div class="list-cinema">
-        <a href="">
-            <h3>
-                {{this.name}}
-            </h3>
-            <span>{{this.address}}</span>
-        </a>
+        <div class="col-md-8 col-sm-8 col-xs-12 content-cinema">
+            {{#each cinemas}}
+            <div class="list-cinema">
+                <a href="">
+                    <h3>
+                        {{this.name}}
+                    </h3>
+                    <span>{{this.address}}</span>
+                </a>
+            </div>
+            {{/each}}
+        </div>
     </div>
-    {{/each}}
 </div>
+
+{{>footer}}
 
 {{#contentFor "scripts"}}
 <script>
     alert("Hello")
 </script>
-{{/contentFor}}
+{{/contentFor}}'

@@ -9,13 +9,13 @@ exports.create = async (req, res, next) => {
         .catch(sendError(req, res));
 };
 
-exports.search = async (req, res, next) => {
-    const agrs = Object.assign({}, req.params, req.body);
+// exports.search = async (req, res, next) => {
+//     const agrs = Object.assign({}, req.params, req.body);
 
-    CinemaActions.search(agrs)
-        .then(sendSuccess(req, res))
-        .catch(sendError(req, res));
-};
+//     CinemaActions.search(agrs)
+//         .then(sendSuccess(req, res))
+//         .catch(sendError(req, res));
+// };
 
 exports.getById = async (req, res, next) => {
     MovieShowtimeActtions.getById(req.params.id)

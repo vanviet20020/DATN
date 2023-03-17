@@ -8,10 +8,12 @@ module.exports = async (id) => {
     const cinema = await Cinema.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
-    }).populate({
-        path: 'supplier',
-        model: 'Supplier',
-    });
+    })
+        .populate({
+            path: 'supplier',
+            model: 'Supplier',
+        })
+        .lean();
 
     const movieShowtimes = await MovieShowtime.find({
         cinema: cinema._id,
@@ -19,6 +21,7 @@ module.exports = async (id) => {
         .populate({
             path: 'movie',
         })
-        .sort({ date: -1 });
+        .sort({ date: -1 })
+        .lean();
     return { cinema, movieShowtimes };
 };

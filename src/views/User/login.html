@@ -1,11 +1,46 @@
-<form action="/users/login" method="post">
-    <div class="mb-3">
-        <label class="form-label">Email address</label>
-        <input type="email" name="email" class="form-control" required>
+{{>header}}
+<main class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-5">
+            <div class="card">
+                <div class="card-header">{{title}}</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group mt-3">
+                            <label for="username">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="form-group mt-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">
+                                Đăng nhập
+                            </button>
+                        </div>
+                    </form>
+                    <div class="form-group mt-3 d-flex justify-content-center">
+                        <span>
+                            Bạn chưa có tài khoản?
+                            <a href="/users/login">Đăng kí ngay</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Đăng nhập</button>
-</form>
+</main>
+{{>footer}}
+
+<script>
+    (function () {
+        const windowHeight = $(window).height();
+        const heightFooter =
+            $('.header').height() +
+            $('.footer').height() +
+            $('.footer-bottom').height();
+
+        $('main').css('min-height', "calc(100vh - " + heightFooter + "px" + ")");
+    })();
+</script>

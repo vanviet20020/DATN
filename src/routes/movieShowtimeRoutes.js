@@ -7,7 +7,7 @@ const movieShowtimeController = require('../controllers/movieShowtimeController'
 const router = express.Router();
 
 router.post('/create', authMiddleware.isAdmin, movieShowtimeController.create);
-router.get('/search', movieShowtimeController.search);
+// router.get('/search', movieShowtimeController.search);
 router.get(
     '/update/:id',
     authMiddleware.isAdmin,

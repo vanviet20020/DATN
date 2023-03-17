@@ -1,0 +1,78 @@
+{{>header}}
+<main class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-8 col-md-6 col-lg-5">
+            <div class="card">
+                <div class="card-header">{{title}}</div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group mt-3">
+                            <label for="fullname">Họ tên</label>
+                            <input type="text" class="form-control" id="fullname" name="fullname" required />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="phone_number">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" required />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Nhập lại mật khẩu</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                                required />
+                        </div>
+                        <div style="margin-top: 7px" id="check-password-match"></div>
+                        <div class="form-group mt-3 d-flex d-flex justify-content-center">
+                            <input type="submit" class="btn btn-primary submit" value="Đăng kí" />
+                        </div>
+                        <div class="form-group mt-3 d-flex d-flex justify-content-center">
+                            <span>
+                                Bạn đã có tài khoản?
+                                <a href="/users/login">Đăng nhập ngay</a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{>footer}}
+
+<script>
+    (function () {
+        const windowHeight = $(window).height();
+        const heightFooter =
+            $('.header').height() +
+            $('.footer').height() +
+            $('.footer-bottom').height();
+
+        $('main').css('min-height', "calc(100vh - " + heightFooter + "px" + ")");
+    })();
+
+    // Kiểm tra mật khẩu
+    $(document).ready(function () {
+        $('input[type="submit"]').prop('disabled', true);
+        $('#confirm-password').on('keyup', function () {
+            if ($('#password').val() != $('#confirm-password').val()) {
+                $('#check-password-match')
+                    .html('Mật khẩu không trùng!')
+                    .css('color', 'red');
+
+                $('input[type="submit"]').prop('disabled', true);
+            } else {
+                $('#check-password-match')
+                    .html('Mật khẩu trùng !')
+                    .css('color', 'green');
+
+                $('input[type="submit"]').prop('disabled', false);
+            }
+        });
+    });
+</script>
