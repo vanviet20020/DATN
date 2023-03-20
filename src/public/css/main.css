@@ -3,6 +3,18 @@
 :root {
     --primary-color: #fe025c;
     --primary-btn-color: #3097d1;
+    --light: #f9f9f9;
+    --blue: #3c91e6;
+    --light-blue: #cfe8ff;
+    --grey: #eee;
+    --dark-grey: #aaaaaa;
+    --dark: #342e37;
+    --red: #db504a;
+    --yellow: #ffce26;
+    --light-yellow: #fff2c6;
+    --orange: #fd7238;
+    --light-orange: #ffe0d3;
+    --primary-btn-color: #3097d1;
 }
 
 * {
@@ -11,6 +23,12 @@
     border: 0;
     font-size: 100%;
     font-family: 'Roboto Condensed', sans-serif;
+    box-sizing: border-box;
+}
+
+:after,
+:before {
+    box-sizing: border-box;
 }
 
 ol,
@@ -31,6 +49,35 @@ label {
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: 700;
+}
+
+/* Checkbox Toggle Switch */
+.switch {
+    display: block;
+    min-width: 50px;
+    max-width: 70px;
+    height: 25px;
+    border-radius: 25px;
+    background: var(--grey);
+    border: var(--blue) 1px solid;
+    cursor: pointer;
+    position: relative;
+}
+
+.switch::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: calc(25px - 4px);
+    background: var(--blue);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+#switch:checked+.switch::before {
+    left: calc(100% - (25px - 4px) - 2px);
 }
 
 /* Header */
@@ -83,6 +130,7 @@ label {
     margin-bottom: 0 !important;
 }
 
+.header .container .navbar lord-icon:hover,
 .header .container .navbar i:hover,
 .header .container .navbar p:hover {
     color: #ed1364 !important;
@@ -92,7 +140,7 @@ label {
 .footer {
     background-image: url('../img/footer_bg.jpg');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
 }
 
 .footer .container .row {
@@ -100,11 +148,7 @@ label {
     justify-content: space-around;
 }
 
-.footer .container .row .col {
-    width: 25%;
-}
-
-.footer .container .row .col .item h1 {
+.footer .container .row .item h1 {
     color: #fe025c;
     font-size: 24px;
     font-weight: 700;
@@ -172,19 +216,8 @@ label {
     text-decoration: underline;
 }
 
-.legend {
-    padding: 6px 8px;
-    font: 16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    line-height: 24px;
-    color: #555;
-}
-
-.search-cinema .form-control {
-    margin-bottom: 16px;
+.form-control {
+    margin-bottom: 15px;
 }
 
 .content-cinema .list-cinema {
@@ -223,6 +256,7 @@ label {
     color: #fe7900;
 }
 
+/* Home */
 .movie-item {
     width: auto;
     padding-left: 4px;
@@ -260,6 +294,7 @@ label {
 
 .movie-item .movie-info .movie-title a {
     color: inherit;
+    font-weight: 400;
 }
 
 .movie-item .movie-info .movie-date {
@@ -293,4 +328,92 @@ label {
     text-align: center;
     font-weight: bold;
     border-radius: 10px 10px 0 0;
+}
+
+.row .movie-detail {
+    height: auto;
+    color: #ffffff;
+    margin-left: -10px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .9) 0, rgba(0, 0, 0, .5) 75%, rgba(0, 0, 0, .3));
+    padding: 20px 30px;
+}
+
+.row .movie-detail .movie-title {
+    margin: 0;
+    margin-bottom: 8px;
+    font-size: 28px;
+    text-transform: capitalize;
+}
+
+.row .movie-detail p {
+    margin-bottom: 4px;
+}
+
+.row .movie-detail .btn-trailer {
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #fe025c;
+    padding: 5px 40px;
+    font-size: 14px;
+    color: #fff;
+    transition: all .3s;
+}
+
+.movie-title-small {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 5px 0;
+}
+
+.row .movie-description {
+    border-right: 3px solid #d3e0e9;
+
+}
+
+.row .movie-description p {
+    text-align: justify;
+}
+
+#schedule .movieshowtime {
+    background: #fff;
+    border-bottom: 1px solid #d3e0e9;
+    padding: 10px
+}
+
+#schedule .cinema {
+    display: inline-block;
+    font-size: 18px;
+}
+
+#schedule .pull-right {
+    float: right
+}
+
+#schedule .address {
+    color: #333;
+}
+
+#schedule .btn {
+    background-color: #fe025c;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    line-height: 15px;
+    font-size: 14px;
+}
+
+/* Map */
+#map {
+    aspect-ratio: 9/7;
+}
+
+.leaflet-left .legend.leaflet-control {
+    padding: 6px 8px;
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    line-height: 24px;
 }

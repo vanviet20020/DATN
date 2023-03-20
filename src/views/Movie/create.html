@@ -1,44 +1,50 @@
 {{#contentFor 'head'}}
 <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
 <!-- My CSS -->
-<link rel="stylesheet" href="/css/dashboard.css" />
+<link rel="stylesheet" href="/css/management.css" />
 {{/contentFor}}
 
 <!-- SIDEBAR -->
 <section id="sidebar">
     <a href="#" class="brand">
-        <i class="bx bxs-smile"></i>
-        <span class="text">AdminHub</span>
+        <i class="bx bxs-home"></i>
+        <span class="text">Trang quản lý</span>
     </a>
     <ul class="side-menu top">
-        <li class="active">
-            <a href="#">
+        <li>
+            <a href="/management">
                 <i class="bx bxs-dashboard"></i>
-                <span class="text">Dashboard</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-shopping-bag-alt"></i>
-                <span class="text">My Store</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-doughnut-chart"></i>
-                <span class="text">Analytics</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-message-dots"></i>
-                <span class="text">Message</span>
+                <span class="text">Chung</span>
             </a>
         </li>
         <li>
             <a href="#">
                 <i class="bx bxs-group"></i>
-                <span class="text">Team</span>
+                <span class="text">Tài khoản</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/movies/management">
+                <i class="bx bxs-film"></i>
+                <span class="text">Phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="/cinemas/management">
+                <i class="bx bxs-map"></i>
+                <span class="text">Rạp chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-calendar"></i>
+                <span class="text">Lịch chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-group"></i>
+                <span class="text">Nhà cung cấp</span>
             </a>
         </li>
     </ul>
@@ -50,8 +56,8 @@
             </a>
         </li>
         <li>
-            <a href="#" class="logout">
-                <i class="bx bxs-log-out-circle"></i>
+            <a href="#" class="logout" onclick="">
+                <i class="bx bx-log-out"></i>
                 <span class="text">Logout</span>
             </a>
         </li>
@@ -59,44 +65,99 @@
 </section>
 <!-- SIDEBAR -->
 
-<form class='col-md-3 col-sm-3 col-xs-12 needs-validation' action='/cinemas/create' method='POST'>
-    <div>
-        <label>Nhà cung cấp</label>
-        <select class='form-select' id='supplier' name='id_supplier' required>
-            <option selected disabled value=''>Chọn nhà cung cấp</option>
-            {{#each suppliers}}
-            <option value='{{this._id}}'>{{this.name}}</option>
-            {{/each}}
-        </select>
-        <div class='invalid-feedback'>
-            Vui lòng chọn nhà cung cấp
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search..." />
+                <button type="submit" class="search-btn">
+                    <i class="bx bx-search"></i>
+                </button>
+            </div>
+        </form>
+        <span>Chế độ màn hình</span>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Trang quản lý</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Trang quản lý</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="/movies/management">Quản lý phim</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="">{{title}}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div>
-        <label>Tên rạp chiếu</label>
-        <input type='text' class='form-control' name='name' placeholder='' required />
-    </div>
-    <div>
-        <label>Địa chỉ</label>
-        <input type='text' class='form-control' name='address' placeholder='' required />
-    </div>
-    <div>
-        {{>district}}
-    </div>
-    <div>
-        <label>Hotline</label>
-        <input type='text' class='form-control' name='hotline' placeholder='' />
-    </div>
-    <div>
-        <label>Vĩ độ</label>
-        <input type='text' class='form-control' id='lat' name='lat' placeholder='' required />
-    </div>
-    <div>
-        <label>Kinh độ</label>
-        <input type='text' class='form-control' id='lng' name='lng' placeholder='' required />
-    </div>
+        <div class="container-fluid">
+            <form class="needs-validation" action="/movies/create" method="POST">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        <label>Tên phim</label>
+                        <input type="text" class="form-control" name="name" required />
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Chọn poster phim</label>
+                        <input type="file" class="form-control" accept="image/png, image/jpeg, image/jpg" />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Trailer link</label>
+                        <input type="text" class="form-control" name="trailer_link" required />
+                    </div>
+                    <div>
+                        <label>Mô tả</label>
+                        <input type="text" class="form-control" name="description" required />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Đạo diễn</label>
+                        <input type="text" class="form-control" name="director" required />
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <label>Diễn viên</label>
+                        <input type="text" class="form-control" name="cast" required />
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <label>Thể loại</label>
+                        <input type="text" class="form-control" name="genre" required />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Ngày công chiếu</label>
+                        <input type="text" class="form-control" name="release_date" required />
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Thời lượng</label>
+                        <input type="text" class="form-control" name="runtime" required />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <label>Ngôn ngữ</label>
+                        <input type="text" class="form-control" name="language" required />
+                    </div>
+                    <div class="col-md-1 col-sm-1 ">
+                        <span>Trạng thái</span>
+                        <input type="checkbox" id="switch" hidden />
+                        <label for="switch" class="switch" style="margin-top: 10px;"></label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Tạo mới</button>
+            </form>
+        </div>
+    </main>
+    <!-- MAIN -->
+</section>
 
-    <button type='submit' class='btn btn-primary'>Tạo mới</button>
-</form>
-
-<script src="/js/dashboard.js"></script>
+<script src="/js/management.js"></script>

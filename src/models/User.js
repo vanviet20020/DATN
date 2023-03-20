@@ -9,6 +9,7 @@ const UserSchema = new Schema(
         phone_number: { type: String, unique: true },
         coin: { type: Number, default: 0 },
         is_admin: { type: Boolean, default: false },
+        is_deleted: { type: Boolean, default: false },
         tickets: [
             {
                 type: Schema.Types.ObjectId,

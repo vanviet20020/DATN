@@ -11,7 +11,10 @@ exports.requireLogin = async (req, res, next) => {
         try {
             const decoded = jwt.verify(token, secret_key);
 
-            const user = await User.findOne({ email: decoded.email });
+            const user = await User.findOne({
+                email: decoded.email,
+                is_deleted: { $ne: true },
+            }).lean();
 
             if (!user) {
                 throw new Error();
@@ -39,6 +42,7 @@ exports.isAdmin = (req, res, next) => {
         try {
             const decoded = jwt.verify(token, secret_key);
             const { role } = decoded;
+            console.log(role);
             if (role === true) {
                 next();
             } else {

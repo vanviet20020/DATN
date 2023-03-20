@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const MovieShowtimeSchema = new Schema(
     {
-        date: { type: Date, required: true },
+        date: { type: String, required: true },
         start_time: { type: String, required: true },
         seats: { type: Number, required: true },
         ticket_price: { type: Number, required: true },
@@ -17,12 +17,6 @@ const MovieShowtimeSchema = new Schema(
             ref: 'Cinema',
             require: true,
         },
-        // tickets: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: "Ticket",
-        //     },
-        // ],
     },
     {
         timestamps: {

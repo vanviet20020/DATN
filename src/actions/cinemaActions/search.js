@@ -1,11 +1,11 @@
 const Cinema = require('../../models/Cinema');
-const Supplier = require('../../models/Cinema');
+const Supplier = require('../../models/Supplier');
 const { supllierExists } = require('../../helpers/checkDataExists');
 
 const validateQuery = (args) => {
     const { name, district, supplier } = args;
 
-    const query = {};
+    const query = { is_deleted: { $ne: true } };
 
     if (name && name.length) {
         Object.assign(query, { name });

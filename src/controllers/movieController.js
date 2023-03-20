@@ -1,6 +1,10 @@
 const MovieActions = require('../actions/movieActions');
 const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
+exports.createForm = async (req, res, next) => {
+    res.render('Movie/create', { title: 'Tạo phim mới' });
+};
+
 exports.create = async (req, res, next) => {
     const args = Object.assign({}, req.params, req.body);
 
@@ -8,6 +12,16 @@ exports.create = async (req, res, next) => {
 
     MovieActions.create(args, file)
         .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
+};
+
+exports.management = async (req, res, next) => {
+    const args = Object.assign({}, req.params, req.body);
+
+    MovieActions.search(args)
+        .then((movies) =>
+            res.render('Movie/management', { title: 'Quản lý phim', movies }),
+        )
         .catch(sendError(req, res));
 };
 

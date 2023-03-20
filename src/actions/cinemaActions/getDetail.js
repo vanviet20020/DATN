@@ -11,7 +11,6 @@ module.exports = async (id) => {
     })
         .populate({
             path: 'supplier',
-            model: 'Supplier',
         })
         .lean();
 

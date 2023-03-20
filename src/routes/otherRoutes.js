@@ -7,5 +7,6 @@ const otherController = require('../controllers/otherController');
 const router = express.Router();
 
 router.get('/', otherController.home);
+router.get('/management', otherController.management);
 
 module.exports = router;

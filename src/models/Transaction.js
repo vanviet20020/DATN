@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const TransactionSchema = new Schema(
     {
         status: { type: String, enmum: ['Nạp tiền', 'Mua vé'], require: true },
+        payment: { type: Number, require: true },
         old_coin: { type: Number, require: true },
         new_coin: { type: Number, require: true },
         message: String,

@@ -14,12 +14,7 @@ const MovieSchema = new Schema(
         language: String,
         genre: String,
         status: { type: Boolean, default: true },
-        // movie_showtimes: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: "MovieShowtime",
-        //     },
-        // ],
+        is_deleted: { type: Boolean, default: false },
     },
     {
         timestamps: {

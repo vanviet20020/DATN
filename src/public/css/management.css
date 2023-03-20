@@ -10,6 +10,10 @@ a {
     text-decoration: none;
 }
 
+ul {
+    padding: 0;
+}
+
 li {
     list-style: none;
 }
@@ -302,6 +306,10 @@ body {
     border-radius: 50%;
 }
 
+#content nav span {
+    color: var(--dark);
+}
+
 #content nav .switch-mode {
     display: block;
     min-width: 50px;
@@ -483,7 +491,7 @@ body {
 
 #content main .table-data .order table th {
     padding-bottom: 12px;
-    font-size: 13px;
+    font-size: 16px;
     text-align: left;
     border-bottom: 1px solid var(--grey);
 }

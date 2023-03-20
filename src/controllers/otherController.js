@@ -12,3 +12,19 @@ exports.home = async (req, res, next) => {
             res.status(503).send('503 Service Temporarily Unavailable'),
         );
 };
+
+exports.management = async (req, res, next) => {
+    OtherActions.management()
+        .then(({ user, ticket, sumCoin, transactions }) => {
+            res.render('Admin/management', {
+                title: 'Trang quản lý',
+                user,
+                ticket,
+                sumCoin,
+                transactions,
+            });
+        })
+        .catch((err) =>
+            res.status(503).send('503 Service Temporarily Unavailable'),
+        );
+};

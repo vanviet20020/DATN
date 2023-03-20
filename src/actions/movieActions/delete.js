@@ -1,8 +1,14 @@
+const { Types } = require('mongoose');
 const Movie = require('../../models/Movie');
-const { movieExists } = require('../../helpers/checkDataExists');
 
 module.exports = async (id) => {
-    return movieExists(id);
+    if (!Types.ObjectId.isValid(`${id}`)) {
+        throw new Error(`ID Phim không hợp lệ`);
+    }
 
-    return Movie.findByIdAndDelete(id).lean();
+    return Movie.findByIdAndUpdate(
+        id,
+        { $set: { is_deleted: true } },
+        { new: true },
+    ).lean();
 };

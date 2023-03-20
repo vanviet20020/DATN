@@ -7,12 +7,19 @@ const movieController = require('../controllers/movieController');
 
 const router = express.Router();
 
+router.get(
+    '/create',
+
+    uploadFileMiddleware,
+    movieController.createForm,
+);
 router.post(
     '/create',
     authMiddleware.isAdmin,
     uploadFileMiddleware,
     movieController.create,
 );
+router.get('/management', movieController.management);
 router.get('/search', movieController.search);
 router.get('/:name', movieController.getDetail);
 router.get(

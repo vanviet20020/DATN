@@ -1,7 +1,7 @@
 {{>header}}
 <main class="container">
     <div class="row justify-content-center align-items-center">
-        <div class="col-sm-8 col-md-6 col-lg-5">
+        <div class="col-sm-8 col-md-7 col-lg-6">
             <div class="card">
                 <div class="card-header">{{title}}</div>
                 <div class="card-body">
@@ -46,16 +46,6 @@
 {{>footer}}
 
 <script>
-    (function () {
-        const windowHeight = $(window).height();
-        const heightFooter =
-            $('.header').height() +
-            $('.footer').height() +
-            $('.footer-bottom').height();
-
-        $('main').css('min-height', "calc(100vh - " + heightFooter + "px" + ")");
-    })();
-
     // Kiểm tra mật khẩu
     $(document).ready(function () {
         $('input[type="submit"]').prop('disabled', true);

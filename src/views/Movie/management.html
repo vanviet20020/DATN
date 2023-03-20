@@ -1,0 +1,160 @@
+{{#contentFor 'head'}}
+<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+<!-- My CSS -->
+<link rel="stylesheet" href="/css/management.css" />
+{{/contentFor}}
+
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <i class="bx bxs-home"></i>
+        <span class="text">Trang quản lý</span>
+    </a>
+    <ul class="side-menu top">
+        <li>
+            <a href="/management">
+                <i class="bx bxs-dashboard"></i>
+                <span class="text">Chung</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-group"></i>
+                <span class="text">Tài khoản</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="">
+                <i class="bx bxs-film"></i>
+                <span class="text">Phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="/cinemas/management">
+                <i class="bx bxs-map"></i>
+                <span class="text">Rạp chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-calendar"></i>
+                <span class="text">Lịch chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-group"></i>
+                <span class="text">Nhà cung cấp</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="#">
+                <i class="bx bxs-cog"></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="logout" onclick="">
+                <i class="bx bx-log-out"></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search..." />
+                <button type="submit" class="search-btn">
+                    <i class="bx bx-search"></i>
+                </button>
+            </div>
+        </form>
+        <span>Chế độ màn hình</span>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+    </nav>
+    <!-- NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Trang quản lý</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Trang quản lý</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="">Quản lý phim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>{{title}}</h3>
+                    <div class="pull-right"><a href="/movies/create" class="btn btn-primary">Tạo phim mới</a>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên phim</th>
+                            <th>Đạo diễn</th>
+                            <th>Diễn viên</th>
+                            <th>Ngày khởi chiếu</th>
+                            <th>Thời gian</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each movies}}
+                        <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.director}}</td>
+                            <td>{{this.cast}}</td>
+                            <td>{{this.release_date}}</td>
+                            <td>{{this.runtime}}</td>
+                            <td>{{this.status}}</td>
+                            <td>
+                                <a href="/movies/update/{{this._id}}">
+                                    <lord-icon src="https://cdn.lordicon.com/puvaffet.json" trigger="hover" cstroke="75"
+                                        style="width:40px;height:40px">
+                                    </lord-icon>
+                                </a>
+                            </td>
+                            <td>
+                                <form action="/movies/delete/{{this._id}}?_method=DELETE" method="post">
+                                    <button type="submit">
+                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="hover"
+                                            colors="primary:#121331,secondary:#e83a30" stroke="75"
+                                            style="width:40px;height:40px">
+                                        </lord-icon>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <!-- MAIN -->
+</section>
+
+<script src="/js/management.js"></script>

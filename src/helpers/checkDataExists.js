@@ -77,7 +77,7 @@ const movieExists = async (id) => {
 
 const mvieShowtimeExists = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error(`ID Rạp chiếu phim không hợp lệ`);
+        throw new Error(`ID Lịch chiếu phim không hợp lệ`);
     }
 
     const dataExists = await MovieShowtime.findOne({
@@ -86,7 +86,7 @@ const mvieShowtimeExists = async (id) => {
     }).lean();
 
     if (!dataExists) {
-        throw new Error(`Rạp chiếu phim không tồn tại`);
+        throw new Error(`Lịch chiếu phim không tồn tại`);
     }
 
     return true;

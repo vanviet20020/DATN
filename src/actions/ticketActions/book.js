@@ -25,10 +25,13 @@ module.exports = async (id_movie_showtime, numberOfTickets = '1', user) => {
                 seats: remainingSeats,
             });
 
-            const new_coin = coin - ticket_price * numberOfTickets;
+            const payment = ticket_price * numberOfTickets;
+
+            const new_coin = coin - payment;
 
             const queryTransaction = {
                 status: 'Mua vé',
+                payment,
                 old_coin: coin,
                 new_coin,
                 user: idUser,

@@ -1,68 +1,186 @@
 {{#contentFor 'head'}}
-<!-- CSS Leaflet -->
+<!-- CSS cdn -->
+<!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin="" />
-<!-- CSS leaflet-routing-machine -->
+<!-- leaflet-routing-machine -->
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css"
     integrity="sha512-eD3SR/R7bcJ9YJeaUe7KX8u8naADgalpY/oNJ6AHvp1ODHF3iR8V9W4UgU611SD/jI0GsFbijyDBAzSOg+n+iQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- leaflet.locatecontrol -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+<!-- boxicons -->
+<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+
+<!-- My CSS -->
+<link rel="stylesheet" href="/css/management.css" />
 {{/contentFor}}
 
-<nav class="navbar col-md-2 col-sm-2 col-xs-12">Đây là navbar</nav>
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <i class="bx bxs-home"></i>
+        <span class="text">Trang quản lý</span>
+    </a>
+    <ul class="side-menu top">
+        <li>
+            <a href="/management">
+                <i class="bx bxs-dashboard"></i>
+                <span class="text">Chung</span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="bx bxs-group"></i>
+                <span class="text">Tài khoản</span>
+            </a>
+        </li>
+        <li>
+            <a href="/movies/management">
+                <i class="bx bxs-film"></i>
+                <span class="text">Phim</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="">
+                <i class="bx bxs-map"></i>
+                <span class="text">Rạp chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-calendar"></i>
+                <span class="text">Lịch chiếu phim</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bxs-group"></i>
+                <span class="text">Nhà cung cấp</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="#">
+                <i class="bx bxs-cog"></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="logout" onclick="">
+                <i class="bx bx-log-out"></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
 
-<div class="col-md-6 col-sm-6 col-xs-12">
-    <div id="map" style="height: 600px"></div>
-</div>
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class="bx bx-menu"></i>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search..." />
+                <button type="submit" class="search-btn">
+                    <i class="bx bx-search"></i>
+                </button>
+            </div>
+        </form>
+        <span>Chế độ màn hình</span>
+        <input type="checkbox" id="switch-mode" hidden />
+        <label for="switch-mode" class="switch-mode"></label>
+    </nav>
+    <!-- NAVBAR -->
 
-<form class="col-md-3 col-sm-3 col-xs-12 needs-validation" action="/cinemas/update/{{cinema._id}}?_method=PUT"
-    method="POST">
-    <div>
-        <label>Nhà cung cấp</label>
-        <select class="form-select" id="supplier" name="supplier" required>
-            <option selected disabled value="">Chọn nhà cung cấp</option>
-            {{#each suppliers}}
-            <option value="{{this._id}}">{{this.name}}</option>
-            {{/each}}
-        </select>
-        <div class="invalid-feedback">Vui lòng chọn nhà cung cấp</div>
-    </div>
-    <div>
-        <label>Tên rạp chiếu</label>
-        <input type="text" class="form-control" name="name" placeholder="" required value="{{cinema.name}}" />
-    </div>
-    <div>
-        <label>Địa chỉ</label>
-        <input type="text" class="form-control" name="address" placeholder="" required value="{{cinema.address}}" />
-    </div>
-    <div>{{>district}}</div>
-    <div>
-        <label>Hotline</label>
-        <input type="text" class="form-control" name="hotline" placeholder="" value="{{cinema.hotline}}" />
-    </div>
-    <div>
-        <label>Vĩ độ</label>
-        <input type="text" class="form-control" id="lat" name="lat" placeholder="" required
-            value="{{cinema.location.coordinates.[0]}}" />
-    </div>
-    <div>
-        <label>Kinh độ</label>
-        <input type="text" class="form-control" id="lng" name="lng" placeholder="" required
-            value="{{cinema.location.coordinates.[1]}}" />
-    </div>
+    <!-- MAIN -->
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Trang quản lý</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Trang quản lý</a>
+                    </li>
 
-    <button type="submit" class="btn btn-primary">Tạo mới</button>
-</form>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="/cinemas/management">Quản lý rạp chiếu phim</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="">Cập nhật rạp chiếu phim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
 
-<!-- Script Leaflet -->
+                <div class="col-md-6 col-sm-6 ">
+                    <div id="map"></div>
+                </div>
+
+                <form class="col-md-3 col-sm-3  needs-validation" action="/cinemas/update/{{cinema._id}}?_method=PUT"
+                    method="POST">
+                    <div>
+                        <label>Nhà cung cấp</label>
+                        <select class="form-select" id="supplier" name="supplier" required>
+                            <option selected disabled value="">Chọn nhà cung cấp</option>
+                            {{#each suppliers}}
+                            <option value="{{this._id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                        <div class="invalid-feedback">Vui lòng chọn nhà cung cấp</div>
+                    </div>
+                    <div>
+                        <label>Tên rạp chiếu</label>
+                        <input type="text" class="form-control" name="name" required value="{{cinema.name}}" />
+                    </div>
+                    <div>
+                        <label>Địa chỉ</label>
+                        <input type="text" class="form-control" name="address" required value="{{cinema.address}}" />
+                    </div>
+                    <div>{{>district}}</div>
+                    <div>
+                        <label>Hotline</label>
+                        <input type="text" class="form-control" name="hotline" value="{{cinema.hotline}}" />
+                    </div>
+                    <div>
+                        <label>Vĩ độ</label>
+                        <input type="text" class="form-control" id="lat" name="lat" required
+                            value="{{cinema.location.coordinates.[1]}}" />
+                    </div>
+                    <div>
+                        <label>Kinh độ</label>
+                        <input type="text" class="form-control" id="lng" name="lng" required
+                            value="{{cinema.location.coordinates.[0]}}" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</section>
+
+<!-- CDN Script -->
+<!-- Leaflet -->
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
-<!-- Script leaflet-routing-machine -->
+<!-- leaflet-routing-machine -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"
     integrity="sha512-FW2A4pYfHjQKc2ATccIPeCaQpgSQE1pMrEsZqfHNohWKqooGsMYCo3WOJ9ZtZRzikxtMAJft+Kz0Lybli0cbxQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- leaflet.locatecontrol -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"
+    charset="utf-8"></script>
 
 <script>
     const mymap = L.map('map').setView(
@@ -77,7 +195,7 @@
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
         },
-    ).addTo(mymap);
+    );
 
     const googleStreets = L.tileLayer(
         'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
@@ -111,72 +229,23 @@
                 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
         },
-    );
+    ).addTo(mymap);
 
     const baseLayers = {
         'Google Hybrid': googleHybrid,
         'Google Streets': googleStreets,
-        'Google Sat': googleSat,
-        'Google Terrain': googleTerrain,
         'Open street map ': openStreetMap,
     };
 
     L.control.layers(baseLayers).addTo(mymap);
-
-    //Lấy vị trí người dùng chọn khi click trên map
-    const latElement = document.querySelector('#lat');
-    const lngElement = document.querySelector('#lng');
-
-    (function () {
-        const lat = latElement.value;
-        const lng = lngElement.value;
-        let marker = L.marker([lat, lng], {
-            draggable: true,
-        });
-
-        marker.addTo(mymap);
-
-        mymap.on('click', function (e) {
-            marker.setLatLng(e.latlng);
-            latElement.value = e.latlng.lat;
-            lngElement.value = e.latlng.lng;
-        });
-
-        marker.on('dragend', function (e) {
-            const newLatLng = marker.getLatLng();
-            console.log('New marker position:', newLatLng);
-            latElement.value = newLatLng.lat;
-            lngElement.value = newLatLng.lng;
-        });
-    })();
-
-    // mymap.on('click', function (e) {
-    //     document.querySelector('#lat').value = e.latlng.lat;
-    //     document.querySelector('#lng').value = e.latlng.lng;
-    //     let new_cinema = L.marker([e.latlng.lat, e.latlng.lng]);
-    //     new_cinema.addTo(mymap);
-    // });
 </script>
 
+<script src="/js/management.js"></script>
+
+<script src="/js/chooseLocation.js"></script>
+
+
+
 <script>
-    (function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation');
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener(
-                'submit',
-                function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-
-                    form.classList.add('was-validated');
-                },
-                false,
-            );
-        });
-    })();
+    $("#districts").attr("required", "true");
 </script>

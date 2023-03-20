@@ -6,6 +6,7 @@ const SupplierSchema = new Schema(
         name: { type: String, required: true },
         ticket_price: { type: Number, required: true },
         image_ticket_price: { type: String, required: true },
+        is_deleted: { type: Boolean, default: false },
     },
     {
         timestamps: {

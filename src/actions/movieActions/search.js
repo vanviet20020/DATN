@@ -3,18 +3,16 @@ const Movie = require('../../models/Movie');
 module.exports = async (args) => {
     const { data } = args;
 
-    let query;
+    const query = { is_deleted: { $ne: true } };
 
     if (data) {
-        query = {
+        Object.assign(query, {
             $or: [
                 { name: { $regex: data } },
                 { director: { $regex: data } },
                 { cast: { $regex: data } },
             ],
-        };
-    } else {
-        query = {};
+        });
     }
 
     const movies = await Movie.find(query).lean();

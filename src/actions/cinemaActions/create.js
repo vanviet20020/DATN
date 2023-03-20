@@ -22,7 +22,7 @@ module.exports = async (args) => {
 
     const location = {
         type: 'Point',
-        coordinates: [lat, lng],
+        coordinates: [lng, lat],
     };
 
     const query = {

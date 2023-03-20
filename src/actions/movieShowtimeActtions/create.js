@@ -4,7 +4,7 @@ const { movieExists, cinemaExists } = require('../../helpers/checkDataExists');
 
 const checkCinemaAndGetTicketPrice = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID rạp chiếu phim không hợp lệ');
+        throw new Error('ID Lịch chiếu phim không hợp lệ');
     }
 
     const cinemaExists = await Cinema.findOne({
@@ -19,7 +19,7 @@ const checkCinemaAndGetTicketPrice = async (id) => {
         .lean();
 
     if (!cinemaExists) {
-        throw new Error('Rạp chiếu phim không tồn tại');
+        throw new Error('Lịch chiếu phim không tồn tại');
     }
 
     return cinemaExists.supplier.ticket_price;
