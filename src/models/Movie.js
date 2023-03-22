@@ -13,6 +13,7 @@ const MovieSchema = new Schema(
         runtime: { type: String, required: true },
         language: String,
         genre: String,
+        // recommend: String,
         status: { type: Boolean, default: true },
         is_deleted: { type: Boolean, default: false },
     },

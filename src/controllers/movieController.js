@@ -9,9 +9,8 @@ exports.create = async (req, res, next) => {
     const args = Object.assign({}, req.params, req.body);
 
     const file = req.file;
-
     MovieActions.create(args, file)
-        .then(sendSuccess(req, res))
+        .then(() => res.redirect('/movies/management'))
         .catch(sendError(req, res));
 };
 
@@ -48,7 +47,12 @@ exports.getDetail = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
     MovieActions.getById(req.params.id)
-        .then(sendSuccess(req, res))
+        .then((movie) => {
+            res.render('Movie/update', {
+                title: `Cập nhật phim ${movie.name}`,
+                movie,
+            });
+        })
         .catch(sendError(req, res));
 };
 

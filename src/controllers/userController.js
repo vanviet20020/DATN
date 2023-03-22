@@ -2,7 +2,7 @@ const UserActions = require('../actions/userActions');
 const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.signUpForm = (req, res, next) => {
-    return res.render('Admin/management', { title: 'Đăng kí' });
+    return res.render('User/signUp', { title: 'Đăng kí' });
 };
 
 exports.signUp = async (req, res, next) => {

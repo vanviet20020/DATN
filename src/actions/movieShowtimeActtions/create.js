@@ -1,3 +1,5 @@
+const { Types } = require('mongoose');
+
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
 const { movieExists, cinemaExists } = require('../../helpers/checkDataExists');

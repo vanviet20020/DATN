@@ -38,7 +38,6 @@ exports.search = async (req, res, next) => {
 
     CinemaActions.search(agrs)
         .then(({ cinemas, suppliers }) => {
-            console.log(cinemas, suppliers);
             res.render('Cinema/search', {
                 title: 'Tất cả các rạp chiếu phim',
                 cinemas,
@@ -103,7 +102,9 @@ exports.update = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
     CinemaActions.update(agrs)
-        .then(sendSuccess(req, res))
+        .then((data) => {
+            res.redirect('/cinemas/management');
+        })
         .catch(sendError(req, res));
 };
 

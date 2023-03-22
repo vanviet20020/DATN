@@ -25,12 +25,12 @@ module.exports = async (args, file) => {
         language,
         genre,
     } = args;
-
+    console.log(file);
     await checkName(name);
 
     const query = {
         name,
-        image: `img/uploads ${file.filename}`,
+        image: `img/uploads/${file.filename}`,
         trailer_link,
         description,
         director,

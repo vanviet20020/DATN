@@ -105,11 +105,12 @@
             </div>
         </div>
         <div class="container-fluid">
-            <form class="needs-validation" action="/movies/create" method="POST" enctype="multipart/form-data">
+            <form class="needs-validation" action="/movies/update/{{movie._id}}?_method=PUT" method="POST"
+                enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-5 col-sm-5">
                         <label>Tên phim</label>
-                        <input type="text" class="form-control" name="name" required />
+                        <input type="text" class="form-control" name="name" required value="{{movie.name}}" />
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <label>Chọn poster phim</label>
@@ -118,39 +119,42 @@
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <label>Trailer link</label>
-                        <input type="text" class="form-control" name="trailer_link" required />
+                        <input type="text" class="form-control" name="trailer_link" required
+                            value="{{movie.trailer_link}}" />
                     </div>
                     <div>
                         <label>Mô tả</label>
-                        <input type="text" class="form-control" name="description" required row="5" />
+                        <textarea type="text" class="form-control" name="description"
+                            required>{{movie.description}}</textarea>
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <label>Đạo diễn</label>
-                        <input type="text" class="form-control" name="director" required />
+                        <input type="text" class="form-control" name="director" required value="{{movie.director}}" />
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <label>Diễn viên</label>
-                        <input type="text" class="form-control" name="cast" required />
+                        <input type="text" class="form-control" name="cast" required value="{{movie.cast}}" />
                     </div>
                     <div class="col-md-2 col-sm-2">
                         <label>Thể loại</label>
-                        <input type="text" class="form-control" name="genre" required />
+                        <input type="text" class="form-control" name="genre" required value="{{movie.genre}}" />
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <label>Ngày công chiếu</label>
-                        <input type="text" class="form-control" name="release_date" required />
+                        <input type="text" class="form-control" name="release_date" required
+                            value="release_date.name" />
                     </div>
                     <div class="col-md-3 col-sm-3">
                         <label>Thời lượng</label>
-                        <input type="text" class="form-control" name="runtime" required />
+                        <input type="text" class="form-control" name="runtime" required value="{{movie.runtime}}" />
                     </div>
                     <div class="col-md-4 col-sm-4">
                         <label>Ngôn ngữ</label>
-                        <input type="text" class="form-control" name="language" required />
+                        <input type="text" class="form-control" name="language" required value="{{movie.language}}" />
                     </div>
                     <div class="col-md-1 col-sm-1 ">
                         <span>Trạng thái</span>
-                        <input type="checkbox" id="switch" hidden />
+                        <input type="checkbox" id="switch" hidden value="{{movie.name}}" />
                         <label for="switch" class="switch" style="margin-top: 10px;"></label>
                     </div>
                 </div>

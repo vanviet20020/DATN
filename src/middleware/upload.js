@@ -37,7 +37,7 @@ const upload = multer({
     },
 });
 
-function uploadFile(req, res, next) {
+const uploadFile = (req, res, next) => {
     upload.single('image')(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             res.status(400).send('Error uploading file. Please try again.');
@@ -48,9 +48,9 @@ function uploadFile(req, res, next) {
             next();
         }
     });
-}
+};
 
-const uploadFileMiddleware = function (req, res, next) {
+const uploadFileMiddleware = (req, res, next) => {
     uploadFile(req, res, next);
 };
 
