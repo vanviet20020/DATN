@@ -1,15 +1,15 @@
 const Movie = require('../../models/Movie');
 const MovieShowtime = require('../../models/MovieShowtime');
 
-const { movieExists } = require('../../helpers/checkDataExists');
-
-module.exports = async (id) => {
-    await movieExists(id);
-
+module.exports = async (name) => {
     const movie = await Movie.findOne({
-        _id: `${id}`,
+        name,
         is_deleted: { $ne: true },
     }).lean();
+
+    if (!movie) {
+        throw new Error('Phim không tồn tại');
+    }
 
     const movieShowtimes = await MovieShowtime.find({
         movie: movie._id,

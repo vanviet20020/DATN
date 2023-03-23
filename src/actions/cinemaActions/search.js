@@ -32,7 +32,7 @@ module.exports = async (args) => {
 
     const suppliers = await Supplier.find().lean();
 
-    const cinemas = await Cinema.find(query).sort({ district: 1 }).lean();
+    const cinemas = await Cinema.find(query).sort({ updated_at: -1 }).lean();
 
     return { cinemas, suppliers };
 };

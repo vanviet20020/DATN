@@ -2,10 +2,9 @@
 //Lấy vị trí người dùng chọn khi click trên map
 const latElement = document.querySelector('#lat');
 const lngElement = document.querySelector('#lng');
-
 (function () {
-    const lat = latElement.value;
-    const lng = lngElement.value;
+    const lat = latElement.value ? latElement.value : 21.02988144294546;
+    const lng = lngElement.value ? lngElement.value : 105.80167329310144;
     let marker = L.marker([lat, lng], {
         draggable: true,
     });
@@ -20,7 +19,6 @@ const lngElement = document.querySelector('#lng');
 
     marker.on('dragend', function (e) {
         const newLatLng = marker.getLatLng();
-        console.log('New marker position:', newLatLng);
         latElement.value = newLatLng.lat;
         lngElement.value = newLatLng.lng;
     });

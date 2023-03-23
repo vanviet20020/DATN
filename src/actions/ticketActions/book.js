@@ -6,16 +6,24 @@ const MovieShowtime = require('../../models/MovieShowtime');
 const Transaction = require('../../models/Transaction');
 const { getMovieShowtime } = require('../../helpers/getDataExists');
 
-module.exports = async (id_movie_showtime, numberOfTickets = '1', user) => {
-    const session = await mongoose.startSession();
+module.exports = async (args, user) => {
+    const { idMovieShowtime, numberTickets } = args;
 
+    const vNumberTickets = parseInt(numberTickets);
+
+    if (!vNumberTickets) {
+        throw new Error('Số vé không hợp lệ');
+    }
+
+    const movieShowtime = await getMovieShowtime(idMovieShowtime);
+
+    const session = await mongoose.startSession();
     session.startTransaction();
     try {
-        const movieShowtime = await getMovieShowtime(id_movie_showtime);
-
         const { _id: idUser, coin } = user;
-        const { _id: idMovieShowtime, ticket_price, seats } = movieShowtime;
-        if (coin > ticket_price * numberOfTickets && numberOfTickets > seats) {
+        const { ticket_price, seats } = movieShowtime;
+
+        if (coin > ticket_price * vNumberTickets && seats > vNumberTickets) {
             // Tạo vé xem phim
             const ticket = await Ticket.create({
                 user: idUser,
@@ -23,14 +31,14 @@ module.exports = async (id_movie_showtime, numberOfTickets = '1', user) => {
             });
 
             //Tính số ghế còn lại và update vào lịch chiếu
-            const remainingSeats = seats - numberOfTickets;
+            const remainingSeats = seats - vNumberTickets;
 
             await MovieShowtime.findByIdAndUpdate(idMovieShowtime, {
                 seats: remainingSeats,
             });
 
             //Tính hóa đơn cho người dùng và lượng xu còn lại
-            const payment = ticket_price * numberOfTickets;
+            const payment = ticket_price * vNumberTickets;
 
             const new_coin = coin - payment;
 
@@ -41,7 +49,7 @@ module.exports = async (id_movie_showtime, numberOfTickets = '1', user) => {
                 old_coin: coin,
                 new_coin,
                 user: idUser,
-                message: `Mua ${numberOfTickets} vé`,
+                message: `Mua ${numberTickets} vé`,
             };
 
             const transaction = await Transaction.create(queryTransaction);

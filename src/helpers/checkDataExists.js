@@ -24,7 +24,6 @@ const userExists = async (id) => {
 };
 
 const supllierExists = async (id) => {
-    console.log(id);
     if (!Types.ObjectId.isValid(`${id}`)) {
         throw new Error(`ID Nhà cung cấp không hợp lệ`);
     }

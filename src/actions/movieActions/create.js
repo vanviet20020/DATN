@@ -25,7 +25,6 @@ module.exports = async (args, file) => {
         language,
         genre,
     } = args;
-    console.log(file);
     await checkName(name);
 
     const query = {

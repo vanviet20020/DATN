@@ -1,0 +1,108 @@
+{{>header}}
+
+<main class="container">
+    <div class="row mt-3">
+        <div class="col-md-9 col-sm-8 d-flex flex-column">
+            <h1 class="movie-title">{{cinema.name}}</h1>
+            <p>Địa chỉ: {{cinema.address}}</p>
+            <p>Số điện thoại: {{cinema.hotline}}</p>
+        </div>
+
+        <div class="col-12">
+            <h1 class="movie-title-small">Bảng giá vé rạp {{cinema.name}}</h1>
+            <img style="width: inherit" src=" /img/Suppliers/{{cinema.supplier.image_ticket_price}}"
+                alt="Giá vé rạp {{cinema.name}}">
+        </div>
+
+        <div id="schedule" class="col-md-7 col-sm-7">
+            <h2 class="movie-title-small">Lịch chiếu tại {{cinema.name}}</h2>
+            {{#each movieShowtimes}}
+            <div class="movieshowtime">
+                <h3 class="cinema">{{this.movie.name}}</h3>
+                <div class="pull-right">
+                    <button class="btn buy-ticket" data-id-movie-showtime="{{this._id}}">Đặt vé</button>
+                </div>
+                <div class="address"></div>
+                <div class="detail">
+                    <span><label for="">Ngày chiếu: </label>{{this.date}}</span><br />
+                    <span><label for="">Giờ chiếu: </label>{{this.start_time}}</span>
+                    <span><label for="">Số vé còn lại: </label>{{this.seats}}</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="col-md-5 col-sm-5 notice-info-ticket">
+            <h3>Lưu ý:</h3>
+            <p>- Giá vé khi đặt vé trực tuyến trên website là giá vé người lớn.</p>
+            <p>- Các loại vé như học sinh-sinh viên, vé trẻ em, vé người cao tuổi, vé U22 vui lòng mua trực tiếp tại
+                quầy.
+            </p>
+            <p>- Vé trẻ em chỉ xuất khi có sự hiện diện của trẻ dưới 1m3 và trên 2 tuổi.</p>
+            <p>- Vé người cao tuổi chỉ dành cho khách hàng từ 55 tuổi trở lên. Vui lòng xuất trình CMND khi mua vé.</p>
+            <p> -
+                Vui lòng xuất trình thẻ học sinh-sinh viên để mua vé ưu đãi.</p>
+        </div>
+    </div>
+</main>
+
+<div id="ticket-modal" style="display:none;">
+    <h2>Mua vé</h2>
+    <form id="ticket-purchase-form">
+        <input type="hidden" id="id_movie_showtime" name="id_movie_showtime">
+        <label for="num-tickets">Số vé muốn mua:</label>
+        <input type="number" id="num-tickets" name="numTickets" min="1" value="1" required>
+        <br>
+        <button type="submit">Mua</button>
+        <button type="button" id="cancel-ticket">Hủy</button>
+    </form>
+</div>
+
+{{>footer}}
+
+<script>
+    // Show the ticket purchase modal when the "Buy Ticket" button is clicked
+    $(document).on('click', '.buy-ticket', function () {
+        const ticketId = $(this).data('id-movie-showtime');
+        $('#ticket-modal').data('id_movie_showtime', ticketId).show();
+    });
+
+    // Hide the ticket purchase modal when the "Cancel" button is clicked
+    $(document).on('click', '#cancel-ticket', function () {
+        $('#ticket-modal').hide();
+    });
+
+    // Handle form submission to purchase the selected tickets
+    $(document).on('submit', '#ticket-purchase-form', function (event) {
+        event.preventDefault();
+        const idMovieShowtime = $('#ticket-modal').data('id_movie_showtime');
+        const numTickets = $('#num-tickets').val();
+
+        // Send an AJAX request to purchase the selected tickets
+        $.ajax({
+            method: 'POST',
+            url: '/tickets/book',
+            data: {
+                idMovieShowtime,
+                numberTickets: numTickets
+            },
+            success: function (response) {
+                const { success } = response
+                if (success) {
+                    const { data } = response
+                    const { message } = data
+                    alert(message)
+                }
+                else {
+                    const { message } = response
+                    alert(message)
+                }
+            },
+            error: function (error) {
+                alert(error)
+            }
+        });
+
+        $('#ticket-modal').hide();
+    });
+</script>

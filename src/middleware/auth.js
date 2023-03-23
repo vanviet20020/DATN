@@ -20,18 +20,16 @@ exports.requireLogin = async (req, res, next) => {
                 throw new Error();
             }
 
-            // Lưu thông tin người dùng vào đối tượng req để các controller sau có thể truy cập
             req.user = user;
             next();
         } catch (err) {
             return res.status(401).send({
-                error: 'Bạn cần đăng nhập để thực hiện thao tác này',
+                message: 'Bạn cần đăng nhập để thực hiện thao tác này',
             });
         }
     } else {
-        // return res.redirect('/login-form');
-        return res.status(401).send({
-            error: 'Bạn cần đăng nhập để thực hiện thao tác này',
+        return res.send({
+            message: 'Bạn cần đăng nhập để thực hiện thao tác này',
         });
     }
 };
@@ -42,7 +40,6 @@ exports.isAdmin = (req, res, next) => {
         try {
             const decoded = jwt.verify(token, secret_key);
             const { role } = decoded;
-            console.log(role);
             if (role === true) {
                 next();
             } else {

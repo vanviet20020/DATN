@@ -7,9 +7,14 @@ const movieController = require('../controllers/movieController');
 
 const router = express.Router();
 
-router.get('/create', movieController.createForm);
-router.post('/create', uploadFileMiddleware, movieController.create);
-router.get('/management', movieController.management);
+router.get('/create', authMiddleware.isAdmin, movieController.createForm);
+router.post(
+    '/create',
+    authMiddleware.isAdmin,
+    uploadFileMiddleware,
+    movieController.create,
+);
+router.get('/management', authMiddleware.isAdmin, movieController.management);
 router.get('/search', movieController.search);
 router.get('/:name', movieController.getDetail);
 router.get(
@@ -23,6 +28,11 @@ router.put(
     authMiddleware.isAdmin,
     uploadFileMiddleware,
     movieController.update,
+);
+router.put(
+    '/update/:id/status',
+    authMiddleware.isAdmin,
+    movieController.updateStatus,
 );
 router.delete('/delete/:id', authMiddleware.isAdmin, movieController.delete);
 

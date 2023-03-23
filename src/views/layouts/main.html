@@ -16,10 +16,9 @@
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
         integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
-        integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Font Awesome CDN    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
@@ -38,22 +37,10 @@
         integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
 
-    <script>
-        (function () {
-            const windowHeight = $(window).height();
-            const heightFooter =
-                $('.header').height() +
-                $('.footer').height() +
-                $('.footer-bottom').height();
-
-            $('main').css(
-                'min-height',
-                'calc(100vh - ' + heightFooter + 'px' + ')',
-            );
-        })();
-    </script>
-
+    <!-- Lordicon CDN -->
     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+    <script src="/js/setMinHeight.js"></script>
 </body>
 
 </html>

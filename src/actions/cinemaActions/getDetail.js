@@ -1,14 +1,8 @@
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
-const { cinemaExists } = require('../../helpers/checkDataExists');
 
-module.exports = async (id) => {
-    await cinemaExists(id);
-
-    const cinema = await Cinema.findOne({
-        _id: `${id}`,
-        is_deleted: { $ne: true },
-    })
+module.exports = async (name) => {
+    const cinema = await Cinema.findOne({ name, is_deleted: { $ne: true } })
         .populate({
             path: 'supplier',
         })

@@ -33,9 +33,8 @@ exports.search = async (req, res, next) => {
 };
 
 exports.getDetail = async (req, res, next) => {
-    MovieActions.getDetail(req.query.id)
+    MovieActions.getDetail(req.params.name)
         .then(({ movie, movieShowtimes }) => {
-            console.log(movie);
             res.render('Movie/detail', {
                 title: movie.name,
                 movie,
@@ -61,12 +60,20 @@ exports.update = async (req, res, next) => {
     const file = req.file;
 
     MovieActions.update(args, file)
-        .then(sendSuccess(req, res))
+        .then(() => res.redirect('/movies/management'))
+        .catch(sendError(req, res));
+};
+
+exports.updateStatus = async (req, res, next) => {
+    const args = Object.assign({}, req.params, req.body);
+
+    MovieActions.updateStatus(args)
+        .then(() => res.redirect('/movies/management'))
         .catch(sendError(req, res));
 };
 
 exports.delete = async (req, res, next) => {
     MovieActions.delete(req.params.id)
-        .then(sendSuccess(req, res))
+        .then(() => res.redirect('/movies/management'))
         .catch(sendError(req, res));
 };

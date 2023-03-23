@@ -15,7 +15,7 @@ module.exports = async (args) => {
         });
     }
 
-    const movies = await Movie.find(query).lean();
+    const movies = await Movie.find(query).sort({ updated_at: -1 }).lean();
 
     return movies;
 };

@@ -9,11 +9,17 @@ exports.createForm = async (req, res, next) => {
         });
     });
 };
+
 exports.create = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
     CinemaActions.create(agrs)
-        .then(sendSuccess(req, res))
+        .then((data) => {
+            res.send('Cinema/management', {
+                title: 'Quản lý rạp chiếu phim',
+                message: `Tạo mới rạp chiếu phim ${data.name} thành công`,
+            });
+        })
         .catch(sendError(req, res));
 };
 
@@ -81,8 +87,14 @@ exports.map = async (req, res, next) => {
 };
 
 exports.getDetail = async (req, res, next) => {
-    CinemaActions.getDetail(req.query.id)
-        .then(sendSuccess(req, res))
+    CinemaActions.getDetail(req.params.name)
+        .then(({ cinema, movieShowtimes }) => {
+            res.render('Cinema/detail', {
+                title: `${cinema.name} - Lịch chiếu`,
+                cinema,
+                movieShowtimes,
+            });
+        })
         .catch(sendError(req, res));
 };
 

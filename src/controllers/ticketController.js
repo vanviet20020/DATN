@@ -3,9 +3,9 @@ const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.book = async (req, res, next) => {
     const user = req.user;
-    const { id_movie_showtime, numberOfTickets } = req.query;
+    const args = Object.assign({}, req.params, req.body);
 
-    TicketActions.book(id_movie_showtime, numberOfTickets, user)
+    TicketActions.book(args, user)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };

@@ -23,21 +23,21 @@
                 <span class="text">Tài khoản</span>
             </a>
         </li>
-        <li>
-            <a href="/movies/management">
+        <li class="active">
+            <a href="">
                 <i class="bx bxs-film"></i>
                 <span class="text">Phim</span>
             </a>
         </li>
-        <li class="active">
-            <a href="">
+        <li>
+            <a href="/cinemas/management">
                 <i class="bx bxs-map"></i>
                 <span class="text">Rạp chiếu phim</span>
             </a>
         </li>
-        <li>
+        <li class="active">
             <a href="/movie-showtimes/management">
-                <i class="bx bxs-calendar"></i>
+                <i class="bx bxs-map"></i>
                 <span class="text">Lịch chiếu phim</span>
             </a>
         </li>
@@ -93,10 +93,9 @@
                     <li>
                         <a href="#">Trang quản lý</a>
                     </li>
-
                     <li><i class="bx bx-chevron-right"></i></li>
                     <li>
-                        <a class="active" href="">Quản lý rạp chiếu phim</a>
+                        <a class="active" href="">Quản lý phim</a>
                     </li>
                 </ul>
             </div>
@@ -106,38 +105,47 @@
             <div class="order">
                 <div class="head">
                     <h3>{{title}}</h3>
-                    <div class="pull-right"><a href="/cinemas/create" class="btn btn-primary">Tạo rạp chiếu phim mới</a>
+                    <div class="pull-right">
+                        <a href="/movie-showtimes/create" class="btn btn-primary">
+                            Tạo lịch chiếu phim mới
+                        </a>
                     </div>
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Tên rạp chiếu phim</th>
-                            <th>Địa chỉ</th>
-                            <th>Quận/Huyện</th>
-                            <th>Hotline</th>
+                            <th>Tên phim</th>
+                            <th>Tên rạp chiếu</th>
+                            <th>Ngày chiếu</th>
+                            <th>Giờ chiếu</th>
+                            <th>Số ghế</th>
+                            <th>Giá vé</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each cinemas}}
+                        {{#each movieShowtimes}}
                         <tr>
-                            <td>{{this.name}}</td>
-                            <td>{{this.address}}</td>
-                            <td>{{this.district}}</td>
-                            <td>{{this.hotline}}</td>
+                            <td>{{this.movie.name}}</td>
+                            <td>{{this.cinema.name}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.start_time}}</td>
+                            <td>{{this.seats}}</td>
+                            <td>{{this.ticket_price}}
+                            </td>
                             <td>
-                                <a href="/cinemas/update/{{this._id}}">
+                                <a href="/movie-showtimes/update/{{this._id}}">
                                     <lord-icon src="https://cdn.lordicon.com/puvaffet.json" trigger="hover" cstroke="75"
                                         style="width:40px;height:40px">
                                     </lord-icon>
                                 </a>
                             </td>
                             <td>
-                                <form action="/cinemas/delete/{{this._id}}?_method=DELETE" method="post">
-                                    <button type="submit"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
-                                            trigger="hover" colors="primary:#121331,secondary:#e83a30" stroke="75"
+                                <form action="/movie-showtimes/delete/{{this._id}}?_method=DELETE" method="post">
+                                    <button type="submit">
+                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="hover"
+                                            colors="primary:#121331,secondary:#e83a30" stroke="75"
                                             style="width:40px;height:40px">
                                         </lord-icon>
                                     </button>

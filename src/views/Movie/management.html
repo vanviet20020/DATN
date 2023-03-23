@@ -36,7 +36,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/movie-showtimes/management">
                 <i class="bx bxs-calendar"></i>
                 <span class="text">Lịch chiếu phim</span>
             </a>
@@ -129,7 +129,12 @@
                             <td>{{this.cast}}</td>
                             <td>{{this.release_date}}</td>
                             <td>{{this.runtime}}</td>
-                            <td>{{this.status}}</td>
+                            <td>{{#if this.status}}
+                                Đang chiếu
+                                {{else}}
+                                Sắp chiếu
+                                {{/if}}
+                            </td>
                             <td>
                                 <a href="/movies/update/{{this._id}}">
                                     <lord-icon src="https://cdn.lordicon.com/puvaffet.json" trigger="hover" cstroke="75"
