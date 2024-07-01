@@ -7,7 +7,7 @@ const TransactionSchema = new Schema(
         payment: { type: Number, require: true },
         old_coin: { type: Number, require: true },
         new_coin: { type: Number, require: true },
-        message: String,
+        message: { type: String },
         user: {
             type: Schema.Types.ObjectId,
             ref: 'User',

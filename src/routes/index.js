@@ -6,6 +6,7 @@ const movieShowtimeRoutes = require('./movieShowtimeRoutes');
 const ticketRoutes = require('./ticketRoutes');
 
 const route = (app) => {
+    // app.all('*', requireAuthentication);
     app.use('/users', userRoutes);
     app.use('/movies', movieRoutes);
     app.use('/cinemas', cinemaRoutes);

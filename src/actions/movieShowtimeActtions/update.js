@@ -1,5 +1,9 @@
 const MovieShowtime = require('../../models/MovieShowtime');
-const { movieExists, cinemaExists, mvieShowtimeExists } = require('../../helpers/checkDataExists');
+const {
+    movieExists,
+    cinemaExists,
+    mvieShowtimeExists,
+} = require('../../helpers/checkDataExists');
 
 module.exports = async (args) => {
     const { id, id_movie, id_cinema, date, time, seats } = args;

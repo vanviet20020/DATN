@@ -10,6 +10,7 @@ exports.signUp = async (req, res, next) => {
 
     UserActions.signUp(agrs)
         .then(sendSuccess(req, res))
+        .then(res.redirect('/'))
         .catch(sendError(req, res));
 };
 

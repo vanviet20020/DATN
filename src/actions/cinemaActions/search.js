@@ -21,6 +21,7 @@ const validateQuery = (args) => {
 
     return query;
 };
+
 module.exports = async (args) => {
     const id_supplier = args.id_supplier;
 
