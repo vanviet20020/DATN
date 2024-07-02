@@ -14,14 +14,14 @@ exports.signUp = async (req, res, next) => {
         .catch(sendError(req, res));
 };
 
-exports.loginForm = (req, res, next) => {
-    return res.render('User/login', { title: 'Đăng nhập' });
+exports.signInForm = (req, res, next) => {
+    return res.render('User/sign-In', { title: 'Đăng nhập' });
 };
 
-exports.login = async (req, res, next) => {
+exports.signIn = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
-    UserActions.login(agrs)
+    UserActions.signIn(agrs)
         .then(({ token, message }) => {
             res.cookie('token', token, { maxAge: 900000, httpOnly: true });
             return res.redirect('/');
@@ -29,7 +29,7 @@ exports.login = async (req, res, next) => {
         .catch(sendError(req, res));
 };
 
-exports.logout = (req, res, next) => {
+exports.signOff = (req, res, next) => {
     res.cookie('token', '', { expires: new Date(0) });
     return res.redirect('/');
 };

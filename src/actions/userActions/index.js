@@ -1,2 +1,2 @@
 exports.signUp = require('./signUp');
-exports.login = require('./login');
+exports.signIn = require('./signIn');
