@@ -33,5 +33,5 @@ viewEngine(app);
 route(app);
 
 app.listen(port, () => {
-    console.log(`Server is runing on port: ${port}`);
+    console.log(`Server is runing on http://localhost:${port} !!`);
 });

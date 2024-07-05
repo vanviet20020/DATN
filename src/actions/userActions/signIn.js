@@ -4,8 +4,6 @@ require('dotenv').config();
 
 const User = require('../../models/User');
 
-const secret_key = process.env.SECRET_KEY || 'Viet';
-
 const checkPassword = async (user, password) => {
     const match = await bcrypt.compare(password, user.password);
 
@@ -33,15 +31,23 @@ module.exports = async (args) => {
     const data = {
         fullname: user.fullname,
         email: user.email,
+        phoneNumber: user.phone_number,
+        coin: user.coin,
         role: user.is_admin,
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
     };
 
-    const token = jwt.sign(data, secret_key);
+    const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: '15m',
+    });
 
-    if (token) {
+    const refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: '3d',
+    });
+
+    if (accessToken && refreshToken) {
         return {
-            token,
+            accessToken,
+            refreshToken,
             message: 'Đăng nhập thành công',
         };
     } else {

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/web_app', {
+        await mongoose.connect(process.env.MONGOURL, {
             useNewUrlParser: true,
         });
         console.log('Connect database Successfully !!');
