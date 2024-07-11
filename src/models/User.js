@@ -8,7 +8,11 @@ const UserSchema = new Schema(
         password: { type: String, required: true },
         phone_number: { type: Number, unique: true, length: 10 },
         coin: { type: Number, default: 0 },
-        is_admin: { type: Boolean, default: false },
+        roles: {
+            type: [String],
+            enum: ['user', 'admin', 'super_admin'],
+            default: ['user'],
+        },
         is_deleted: { type: Boolean, default: false },
         tickets: [
             {

@@ -46,7 +46,7 @@ module.exports = async (args) => {
 
     if (accessToken && refreshToken) {
         return {
-            accessToken,
+            token: accessToken,
             refreshToken,
             message: 'Đăng nhập thành công',
         };

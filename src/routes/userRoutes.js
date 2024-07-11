@@ -11,5 +11,6 @@ router.get('/sign-in', userController.signInForm);
 router.post('/sign-in', userController.signIn);
 router.get('/sign-off', authMiddleware.requireLogin, userController.signOff);
 router.post('refresh-token', userController.refreshToken);
+router.get('get-all', authMiddleware.isAdmin, userController.getAll);
 
 module.exports = router;

@@ -22,22 +22,22 @@ exports.signIn = async (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
     UserActions.signIn(agrs)
-        // .then((data) => {
-        //     res.cookie('token', data.token, {
-        //         httpOnly: true,
-        //         sameSite: 'None',
-        //         secure: true,
-        //         maxAge: 15 * 60 * 1000,
-        //     });
-        //     res.cookie('refreshToken', data.refreshToken, {
-        //         httpOnly: true,
-        //         sameSite: 'None',
-        //         secure: true,
-        //         maxAge: 72 * 60 * 60 * 1000,
-        //     });
-        //     return sendSuccess(data);
-        // })
-        .then(sendSuccess(req, res))
+        .then((data) => {
+            res.cookie('token', data.token, {
+                httpOnly: true,
+                sameSite: 'None',
+                secure: true,
+                maxAge: 15 * 60 * 1000,
+            });
+            res.cookie('refreshToken', data.refreshToken, {
+                httpOnly: true,
+                sameSite: 'None',
+                secure: true,
+                maxAge: 72 * 60 * 60 * 1000,
+            });
+            return res.status(200).send('Login success');
+        })
+        // .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };
 
@@ -50,6 +50,14 @@ exports.refreshToken = (req, res, next) => {
     const agrs = Object.assign({}, req.params, req.body);
 
     UserActions.refreshToken(agrs)
+        .then(sendSuccess(req, res))
+        .catch(sendError(req, res));
+};
+
+exports.getAll = (req, res, next) => {
+    const agrs = Objecta.assign({}, req.params, req.body);
+
+    UserActions.getAll(agrs)
         .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };
