@@ -7,6 +7,10 @@ const otherController = require('../controllers/otherController');
 const router = express.Router();
 
 router.get('/', otherController.home);
-router.get('/management', authMiddleware.isAdmin, otherController.management);
+router.get(
+    '/management',
+    authMiddleware.requireRole('admin'),
+    otherController.management,
+);
 
 module.exports = router;

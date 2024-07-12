@@ -1,4 +1,4 @@
-<!-- {{>header}} -->
+{{>header}}
 <main class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-sm-8 col-md-7 col-lg-6">
@@ -30,7 +30,7 @@
     </div>
 </main>
 
-<!-- {{>footer}} -->
+{{>footer}}
 
 <script>
     function setCookie(cname, cvalue, expiresMin) {
@@ -51,7 +51,7 @@
         })
             .then((data) => {
                 setCookie('token', data.data.token, 15);
-                setCookie('refreshToken', data.data.refreshToken, 3 * 24 * 60);
+                setCookie('refreshToken', data.data.refreshToken, 30 * 24 * 60);
 
                 window.location.href = '/';
             })

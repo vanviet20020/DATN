@@ -33,7 +33,7 @@ module.exports = async (args) => {
         email: user.email,
         phoneNumber: user.phone_number,
         coin: user.coin,
-        role: user.is_admin,
+        roles: user.roles,
     };
 
     const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
@@ -41,7 +41,7 @@ module.exports = async (args) => {
     });
 
     const refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN_SECRET, {
-        expiresIn: '3d',
+        expiresIn: '30d',
     });
 
     if (accessToken && refreshToken) {

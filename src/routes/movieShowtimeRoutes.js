@@ -8,28 +8,32 @@ const router = express.Router();
 
 router.get(
     '/create',
-    // authMiddleware.isAdmin,
+    // authMiddleware.requireRole('admin'),
     movieShowtimeController.createForm,
 );
-router.post('/create', authMiddleware.isAdmin, movieShowtimeController.create);
+router.post(
+    '/create',
+    authMiddleware.requireRole('admin'),
+    movieShowtimeController.create,
+);
 router.get(
     '/management',
-    // authMiddleware.isAdmin,
+    // authMiddleware.requireRole('admin'),
     movieShowtimeController.management,
 );
 router.get(
     '/update/:id',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     movieShowtimeController.getById,
 );
 router.put(
     '/update/:id',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     movieShowtimeController.update,
 );
 router.delete(
     '/delete',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     movieShowtimeController.delete,
 );
 

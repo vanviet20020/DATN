@@ -33,11 +33,12 @@ exports.signIn = async (req, res, next) => {
                 httpOnly: true,
                 sameSite: 'None',
                 secure: true,
-                maxAge: 72 * 60 * 60 * 1000,
+                maxAge: 30 * 24 * 60 * 60 * 1000,
             });
-            return res.status(200).send('Login success');
+            return data;
+            // return res.status(200).send('Login success');
         })
-        // .then(sendSuccess(req, res))
+        .then(sendSuccess(req, res))
         .catch(sendError(req, res));
 };
 

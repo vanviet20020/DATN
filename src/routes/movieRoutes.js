@@ -7,33 +7,45 @@ const movieController = require('../controllers/movieController');
 
 const router = express.Router();
 
-router.get('/create', authMiddleware.isAdmin, movieController.createForm);
+router.get(
+    '/create',
+    authMiddleware.requireRole('admin'),
+    movieController.createForm,
+);
 router.post(
     '/create',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     uploadFileMiddleware,
     movieController.create,
 );
-router.get('/management', authMiddleware.isAdmin, movieController.management);
+router.get(
+    '/management',
+    authMiddleware.requireRole('admin'),
+    movieController.management,
+);
 router.get('/search', movieController.search);
 router.get('/:name', movieController.getDetail);
 router.get(
     '/update/:id',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     uploadFileMiddleware,
     movieController.getById,
 );
 router.put(
     '/update/:id',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     uploadFileMiddleware,
     movieController.update,
 );
 router.put(
     '/update/:id/status',
-    authMiddleware.isAdmin,
+    authMiddleware.requireRole('admin'),
     movieController.updateStatus,
 );
-router.delete('/delete/:id', authMiddleware.isAdmin, movieController.delete);
+router.delete(
+    '/delete/:id',
+    authMiddleware.requireRole('admin'),
+    movieController.delete,
+);
 
 module.exports = router;

@@ -5,8 +5,10 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+
 const route = require('./routes');
+const { passportConfig } = require('./config/passport');
 const { viewEngine } = require('./config/viewsEngine');
 
 // Connect DB
@@ -22,6 +24,8 @@ app.use(bodyParser.json());
 //config cookie-parser
 app.use(cookieParser());
 
+passportConfig(app);
+
 //override with POST having ?_method=[ Tên method (PUT, PATCH, DELETE, OPTIONS)]
 app.use(methodOverride('_method'));
 
@@ -32,6 +36,6 @@ viewEngine(app);
 
 route(app);
 
-app.listen(port, () => {
-    console.log(`Server is runing on http://localhost:${port} !!`);
+app.listen(PORT, () => {
+    console.log(`Server is runing on http://localhost:${PORT} !!`);
 });
