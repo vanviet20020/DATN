@@ -10,10 +10,7 @@ const PORT = process.env.PORT || 3000;
 const route = require('./routes');
 const { passportConfig } = require('./config/passport');
 const { viewEngine } = require('./config/viewsEngine');
-
-// Connect DB
-const { connect } = require('./config/connectBD');
-connect();
+require('./config/connectRedis');
 
 const app = express();
 

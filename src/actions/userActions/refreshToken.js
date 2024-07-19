@@ -1,32 +1,38 @@
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-module.exports = (args) => {
-    const { cookies } = args;
+const {
+    signAccessToken,
+    signRefreshToken,
+    verifyRefreshToken,
+} = require('../../helpers/JWT');
 
-    if (!cookies?.jwt) ({ message: 'Unauthorized' });
+module.exports = async (args) => {
+    const { refreshToken } = args;
 
-    // Destructuring refreshToken from cookie
-    const refreshToken = cookies.jwt;
+    if (!refreshToken) return { message: 'Đăng nhập không thành công' };
 
-    // Verifying refresh token
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err) ({ message: 'Unauthorized' });
+    const decoded = await verifyRefreshToken(refreshToken);
 
-            // Correct token we send a new access token
-            const accessToken = jwt.sign(
-                {
-                    username: userCredentials.username,
-                    email: userCredentials.email,
-                },
-                process.env.ACCESS_TOKEN_SECRET,
-                {
-                    expiresIn: '15m',
-                },
-            );
-            return { accessToken };
-        },
-    );
+    const data = {
+        id: decoded.id,
+        fullname: decoded.fullname,
+        email: decoded.email,
+        phoneNumber: decoded.phone_number,
+        coin: decoded.coin,
+        roles: decoded.roles,
+    };
+
+    const accessToken = await signAccessToken(data);
+    const newRefreshToken = await signRefreshToken(data);
+
+    if (accessToken && refreshToken) {
+        return {
+            token: accessToken,
+            refreshToken: newRefreshToken,
+            message: 'Đăng nhập thành công',
+        };
+    } else {
+        return { message: 'Đăng nhập không thành công' };
+    }
 };

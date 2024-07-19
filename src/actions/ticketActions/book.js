@@ -4,7 +4,7 @@ const User = require('../../models/User');
 const Ticket = require('../../models/Ticket');
 const MovieShowtime = require('../../models/MovieShowtime');
 const Transaction = require('../../models/Transaction');
-const { getMovieShowtime } = require('../../helpers/getDataExists');
+const getData = require('../../helpers/getDataExists');
 
 module.exports = async (args, user) => {
     const { idMovieShowtime, numberTickets } = args;
@@ -15,7 +15,7 @@ module.exports = async (args, user) => {
         throw new Error('Số vé không hợp lệ');
     }
 
-    const movieShowtime = await getMovieShowtime(idMovieShowtime);
+    const movieShowtime = await getData(idMovieShowtime, 'MovieShowtime');
 
     const session = await mongoose.startSession();
     session.startTransaction();

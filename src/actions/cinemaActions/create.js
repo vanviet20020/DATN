@@ -1,5 +1,5 @@
 const Cinema = require('../../models/Cinema');
-const { supllierExists } = require('../../helpers/checkDataExists');
+const dataExists = require('../../helpers/checkDataExists');
 
 const checkName = async (name) => {
     const namelExists = await Cinema.findOne({
@@ -17,7 +17,7 @@ const checkName = async (name) => {
 module.exports = async (args) => {
     const { supplier, name, address, district, hotline, lat, lng } = args;
 
-    await supllierExists(supplier);
+    await dataExists(supplier, 'Suplier');
     await checkName(name);
 
     const location = {

@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', otherController.home);
 router.get(
     '/management',
-    authMiddleware.requireRole('admin'),
+    authMiddleware.requireRole(['admin', 'super_admin']),
     otherController.management,
 );
 

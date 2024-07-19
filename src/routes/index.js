@@ -1,4 +1,4 @@
-const setUserInRequest = require('../utils/setUserInReq');
+const setUserInRequest = require('../helpers/setUserInReq');
 const otherRoutes = require('./otherRoutes');
 const userRoutes = require('./userRoutes');
 const movieRoutes = require('./movieRoutes');

@@ -1,6 +1,6 @@
 const Cinema = require('../../models/Cinema');
 const Supplier = require('../../models/Supplier');
-const { supllierExists } = require('../../helpers/checkDataExists');
+const checkDataExists = require('../../helpers/checkDataExists');
 
 const validateQuery = (args) => {
     const { name, district, supplier } = args;
@@ -26,7 +26,7 @@ module.exports = async (args) => {
     const id_supplier = args.id_supplier;
 
     if (id_supplier && id_supplier.length) {
-        await supllierExists(id_supplier);
+        await checkDataExists(id_supplier, 'Supplier');
     }
 
     const query = validateQuery(args);

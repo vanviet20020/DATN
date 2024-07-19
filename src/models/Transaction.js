@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const { connection } = require('../config/connectBD');
+
 const TransactionSchema = new Schema(
     {
         status: { type: String, enmum: ['Nạp tiền', 'Mua vé'], require: true },
@@ -21,6 +23,6 @@ const TransactionSchema = new Schema(
     },
 );
 
-const Transaction = mongoose.model('Transaction', TransactionSchema);
+const Transaction = connection.model('transactions', TransactionSchema);
 
 module.exports = Transaction;

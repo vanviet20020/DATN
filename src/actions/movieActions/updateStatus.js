@@ -1,8 +1,8 @@
 const Movie = require('../../models/Movie');
-const { movieExists } = require('../../helpers/checkDataExists');
+const dataExists = require('../../helpers/checkDataExists');
 module.exports = async (args) => {
     const { id_movie, status } = args;
-    await movieExists(id_movie);
+    await dataExists(id_movie, 'Movie');
 
     const movieUpdate = await Movie.findByIdAndUpdate(id_movie, {
         status,

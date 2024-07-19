@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const { connection } = require('../config/connectBD');
+
 const MovieShowtimeSchema = new Schema(
     {
         date: { type: String, required: true },
@@ -26,6 +28,6 @@ const MovieShowtimeSchema = new Schema(
     },
 );
 
-const MovieShowtime = mongoose.model('MovieShowtime', MovieShowtimeSchema);
+const MovieShowtime = connection.model('movieshowtimes', MovieShowtimeSchema);
 
 module.exports = MovieShowtime;

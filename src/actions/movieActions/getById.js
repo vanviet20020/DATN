@@ -1,3 +1,3 @@
-const { getMovie } = require('../../helpers/getDataExists');
+const getData = require('../../helpers/getDataExists');
 
-module.exports = async (id) => getMovie(id);
+module.exports = async (id) => getMovie(id, 'Movie');

@@ -2,7 +2,7 @@ const { Types } = require('mongoose');
 
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
-const { movieExists, cinemaExists } = require('../../helpers/checkDataExists');
+const dataExists = require('../../helpers/checkDataExists');
 
 const checkCinemaAndGetTicketPrice = async (id) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
@@ -30,8 +30,8 @@ const checkCinemaAndGetTicketPrice = async (id) => {
 module.exports = async (args) => {
     const { id_movie, id_cinema, date, start_time, seats } = args;
 
-    await movieExists(id_movie);
-    await cinemaExists(id_cinema);
+    await dataExists(id_movie, 'Movie');
+    await dataExists(id_cinema, 'Cinema');
 
     const ticket_price = await checkCinemaAndGetTicketPrice(id_cinema);
 

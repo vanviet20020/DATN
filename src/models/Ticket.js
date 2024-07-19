@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const { connection } = require('../config/connectBD');
+
 const TicketSchema = new Schema(
     {
         user: {
@@ -22,6 +24,6 @@ const TicketSchema = new Schema(
     },
 );
 
-const Ticket = mongoose.model('Ticket', TicketSchema);
+const Ticket = connection.model('tickets', TicketSchema);
 
 module.exports = Ticket;

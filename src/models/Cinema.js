@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const { connection } = require('../config/connectBD');
+
 const CinemaSchema = new Schema(
     {
         name: { type: String, unique: true },
@@ -23,6 +25,6 @@ const CinemaSchema = new Schema(
     },
 );
 
-const Cinema = mongoose.model('Cinema', CinemaSchema);
+const Cinema = connection.model('cinemas', CinemaSchema);
 
 module.exports = Cinema;

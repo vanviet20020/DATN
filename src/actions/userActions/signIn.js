@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const { signAccessToken, signRefreshToken } = require('../../helpers/JWT');
 
 const User = require('../../models/User');
 
@@ -29,6 +28,7 @@ module.exports = async (args) => {
     await checkPassword(user, password);
 
     const data = {
+        id: user._id,
         fullname: user.fullname,
         email: user.email,
         phoneNumber: user.phone_number,
@@ -36,13 +36,8 @@ module.exports = async (args) => {
         roles: user.roles,
     };
 
-    const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: '15m',
-    });
-
-    const refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN_SECRET, {
-        expiresIn: '30d',
-    });
+    const accessToken = await signAccessToken(data);
+    const refreshToken = await signRefreshToken(data);
 
     if (accessToken && refreshToken) {
         return {
