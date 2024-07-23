@@ -6,6 +6,7 @@ exports.createForm = async (req, res, next) => {
         res.render('Cinema/create', {
             title: 'Tạo rạp chiếu phim mới',
             suppliers,
+            layout: 'dashboard',
         });
     });
 };
@@ -15,10 +16,7 @@ exports.create = async (req, res, next) => {
 
     CinemaActions.create(agrs)
         .then((data) => {
-            res.send('Cinema/management', {
-                title: 'Quản lý rạp chiếu phim',
-                message: `Tạo mới rạp chiếu phim ${data.name} thành công`,
-            });
+            res.redirect('cinemas/management');
         })
         .catch(sendError(req, res));
 };
@@ -32,11 +30,10 @@ exports.management = async (req, res, next) => {
                 title: 'Quản lý rạp chiếu phim',
                 cinemas,
                 suppliers,
+                layout: 'dashboard',
             });
         })
-        .catch((err) => {
-            res.redirect('/cinemas/management');
-        });
+        .catch(sendError(req, res));
 };
 
 exports.search = async (req, res, next) => {
@@ -50,9 +47,7 @@ exports.search = async (req, res, next) => {
                 suppliers,
             });
         })
-        .catch((err) => {
-            res.redirect('/cinemas/search');
-        });
+        .catch(sendError(req, res));
 };
 
 exports.geojson = async (req, res, next) => {
@@ -77,9 +72,7 @@ exports.geojson = async (req, res, next) => {
             });
             res.json({ features: cinemasFeatures });
         })
-        .catch((err) => {
-            res.redirect('/');
-        });
+        .catch(sendError(req, res));
 };
 
 exports.map = async (req, res, next) => {
@@ -105,6 +98,7 @@ exports.getById = async (req, res, next) => {
                 title: `Cập nhật rạp chiếu ${cinema.name}`,
                 cinema,
                 suppliers,
+                layout: 'dashboard',
             });
         })
         .catch(sendError(req, res));

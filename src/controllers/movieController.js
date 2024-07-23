@@ -2,7 +2,10 @@ const MovieActions = require('../actions/movieActions');
 const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.createForm = async (req, res, next) => {
-    return res.render('Movie/create', { title: 'Tạo phim mới' });
+    return res.render('Movie/create', {
+        title: 'Tạo phim mới',
+        layout: 'dashboard',
+    });
 };
 
 exports.create = async (req, res, next) => {
@@ -19,7 +22,11 @@ exports.management = async (req, res, next) => {
 
     MovieActions.search(args)
         .then((movies) =>
-            res.render('Movie/management', { title: 'Quản lý phim', movies }),
+            res.render('Movie/management', {
+                title: 'Quản lý phim',
+                movies,
+                layout: 'dashboard',
+            }),
         )
         .catch(sendError(req, res));
 };
@@ -50,6 +57,7 @@ exports.getById = async (req, res, next) => {
             res.render('Movie/update', {
                 title: `Cập nhật phim ${movie.name}`,
                 movie,
+                layout: 'dashboard',
             });
         })
         .catch(sendError(req, res));

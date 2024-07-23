@@ -13,160 +13,79 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
 <!-- boxicons -->
 <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
-<!-- My CSS -->
+
 <link rel="stylesheet" href="/css/management.css" />
 {{/contentFor}}
 
-<!-- SIDEBAR -->
-<section id="sidebar">
-    <a href="#" class="brand">
-        <i class="bx bxs-home"></i>
-        <span class="text">Trang quản lý</span>
-    </a>
-    <ul class="side-menu top">
-        <li>
-            <a href="/management">
-                <i class="bx bxs-dashboard"></i>
-                <span class="text">Chung</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-group"></i>
-                <span class="text">Tài khoản</span>
-            </a>
-        </li>
-        <li>
-            <a href="/movies/management">
-                <i class="bx bxs-film"></i>
-                <span class="text">Phim</span>
-            </a>
-        </li>
-        <li class="active">
-            <a href="/cinemas/management">
-                <i class="bx bxs-map"></i>
-                <span class="text">Rạp chiếu phim</span>
-            </a>
-        </li>
-        <li>
-            <a href="/movie-showtimes/management">
-                <i class="bx bxs-calendar"></i>
-                <span class="text">Lịch chiếu phim</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-group"></i>
-                <span class="text">Nhà cung cấp</span>
-            </a>
-        </li>
-    </ul>
-    <ul class="side-menu">
-        <li>
-            <a href="#">
-                <i class="bx bxs-cog"></i>
-                <span class="text">Settings</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="logout" onclick="">
-                <i class="bx bx-log-out"></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
-    </ul>
-</section>
-<!-- SIDEBAR -->
-
-<!-- CONTENT -->
-<section id="content">
-    <!-- NAVBAR -->
-    <nav>
-        <i class="bx bx-menu"></i>
-        <form action="#">
-            <div class="form-input">
-                <input type="search" placeholder="Search..." />
-                <button type="submit" class="search-btn">
-                    <i class="bx bx-search"></i>
-                </button>
-            </div>
-        </form>
-        <span>Chế độ màn hình</span>
-        <input type="checkbox" id="switch-mode" hidden />
-        <label for="switch-mode" class="switch-mode"></label>
-    </nav>
-    <!-- NAVBAR -->
-
-    <!-- MAIN -->
-    <main>
-        <div class="head-title">
-            <div class="left">
-                <h1>Trang quản lý</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Trang quản lý</a>
-                    </li>
-                    <li><i class="bx bx-chevron-right"></i></li>
-                    <li>
-                        <a class="active" href="/cinemas/management">Quản lý rạp chiếu phim</a>
-                    </li>
-                    <li><i class="bx bx-chevron-right"></i></li>
-                    <li>
-                        <a class="active" href="">{{title}}</a>
-                    </li>
-                </ul>
-            </div>
+<!-- MAIN -->
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Trang quản lý</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Trang quản lý</a>
+                </li>
+                <li><i class="bx bx-chevron-right"></i></li>
+                <li>
+                    <a class="active" href="/cinemas/management">Quản lý rạp chiếu phim</a>
+                </li>
+                <li><i class="bx bx-chevron-right"></i></li>
+                <li>
+                    <a class="active" href="">{{title}}</a>
+                </li>
+            </ul>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div id="map"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+                <div id="map" style="width: 100%;height: 100%;"></div>
+            </div>
+            <form class="col-md-5 col-sm-5 needs-validation" action="/cinemas/create" method="POST">
+                <div>
+                    <label>Nhà cung cấp</label>
+                    <select class="form-select" id="supplier" name="supplier" required>
+                        <option selected disabled value="">
+                            Chọn nhà cung cấp
+                        </option>
+                        {{#each suppliers}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="invalid-feedback">
+                        Vui lòng chọn nhà cung cấp
+                    </div>
                 </div>
-                <form class="col-md-3 col-sm-3 needs-validation" action="/cinemas/create" method="POST">
-                    <div>
-                        <label>Nhà cung cấp</label>
-                        <select class="form-select" id="supplier" name="supplier" required>
-                            <option selected disabled value="">
-                                Chọn nhà cung cấp
-                            </option>
-                            {{#each suppliers}}
-                            <option value="{{this._id}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                        <div class="invalid-feedback">
-                            Vui lòng chọn nhà cung cấp
-                        </div>
-                    </div>
-                    <div>
-                        <label>Tên rạp chiếu</label>
-                        <input type="text" class="form-control" name="name" required />
-                    </div>
-                    <div>
-                        <label>Địa chỉ</label>
-                        <input type="text" class="form-control" name="address" required />
-                    </div>
-                    <div>{{>district}}</div>
-                    <div>
-                        <label>Hotline</label>
-                        <input type="text" class="form-control" name="hotline" />
-                    </div>
-                    <div>
-                        <label>Vĩ độ</label>
-                        <input type="text" class="form-control" id="lat" name="lat" required />
-                    </div>
-                    <div>
-                        <label>Kinh độ</label>
-                        <input type="text" class="form-control" id="lng" name="lng" required />
-                    </div>
+                <div>
+                    <label>Tên rạp chiếu</label>
+                    <input type="text" class="form-control" name="name" required />
+                </div>
+                <div>
+                    <label>Địa chỉ</label>
+                    <input type="text" class="form-control" name="address" required />
+                </div>
+                <div>{{>district}}</div>
+                <div>
+                    <label>Hotline</label>
+                    <input type="text" class="form-control" name="hotline" />
+                </div>
+                <div>
+                    <label>Vĩ độ</label>
+                    <input type="text" class="form-control" id="lat" name="lat" required />
+                </div>
+                <div>
+                    <label>Kinh độ</label>
+                    <input type="text" class="form-control" id="lng" name="lng" required />
+                </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        Tạo mới
-                    </button>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary">
+                    Tạo mới
+                </button>
+            </form>
         </div>
-    </main>
-</section>
+    </div>
+</main>
 
 <!-- Script cdn -->
 <!-- Leaflet -->
@@ -178,63 +97,7 @@
     integrity="sha512-FW2A4pYfHjQKc2ATccIPeCaQpgSQE1pMrEsZqfHNohWKqooGsMYCo3WOJ9ZtZRzikxtMAJft+Kz0Lybli0cbxQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-    const mymap = L.map('map').setView(
-        [21.02988144294546, 105.80167329310144],
-        12,
-    );
-
-    //Layer maps
-    const googleHybrid = L.tileLayer(
-        'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
-        {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        },
-    );
-
-    const googleStreets = L.tileLayer(
-        'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-        {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        },
-    );
-
-    const googleSat = L.tileLayer(
-        'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-        {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        },
-    );
-
-    const googleTerrain = L.tileLayer(
-        'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-        {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-        },
-    );
-
-    const openStreetMap = L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            attribution:
-                'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-        },
-    ).addTo(mymap);
-
-    const baseLayers = {
-        'Google Hybrid': googleHybrid,
-        'Google Streets': googleStreets,
-        'Open street map ': openStreetMap,
-    };
-
-    L.control.layers(baseLayers).addTo(mymap);
-</script>
+<script src="/js/setViewMap.js"></script>
 
 <script src="/js/management.js"></script>
 

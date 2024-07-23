@@ -1,156 +1,66 @@
-{{#contentFor 'head'}}
-<!-- CSS cdn -->
-<!-- boxicons -->
-<link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
-<!-- My CSS -->
-<link rel="stylesheet" href="/css/management.css" />
-{{/contentFor}}
+<!-- MAIN -->
+<main>
+    <div class="head-title">
+        <div class="left">
+            <h1>Trang quản lý</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Trang quản lý</a>
+                </li>
+                <li><i class="bx bx-chevron-right"></i></li>
+                <li>
+                    <a class="active" href="/cinemas/management">Quản lý Lịch chiếu phim</a>
+                </li>
+                <li><i class="bx bx-chevron-right"></i></li>
+                <li>
+                    <a class="active" href="">{{title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <form class="col-md-7 needs-validation" action="/movie-showtimes/create" method="POST">
+                <div>
+                    <label>Phim</label>
+                    <select class="form-select" id="movie" name="id_movie" required>
+                        <option selected disabled value="">
+                            Chọn phim
+                        </option>
+                        {{#each movies}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label>Rạp chiếu phim</label>
+                    <select class="form-select" id="cinema" name="id_cinema" required>
+                        <option selected disabled value="">
+                            Chọn rạp chiếu phim
+                        </option>
+                        {{#each cinemas}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label>Ngày chiếu</label>
+                    <input type="text" class="form-control" name="date" required />
+                </div>
+                <div>
+                    <label>Giờ chiếu</label>
+                    <input type="text" class="form-control" name="start_time" required />
+                </div>
+                <div>
+                    <label>Số ghế ngồi</label>
+                    <input type="text" class="form-control" name="seats" required />
+                </div>
 
-<!-- SIDEBAR -->
-<section id="sidebar">
-    <a href="#" class="brand">
-        <i class="bx bxs-home"></i>
-        <span class="text">Trang quản lý</span>
-    </a>
-    <ul class="side-menu top">
-        <li>
-            <a href="/management">
-                <i class="bx bxs-dashboard"></i>
-                <span class="text">Chung</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-group"></i>
-                <span class="text">Tài khoản</span>
-            </a>
-        </li>
-        <li>
-            <a href="/movies/management">
-                <i class="bx bxs-film"></i>
-                <span class="text">Phim</span>
-            </a>
-        </li>
-        <li class="active">
-            <a href="/movie-showtimes/management">
-                <i class="bx bxs-map"></i>
-                <span class="text">Lịch chiếu phim</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-calendar"></i>
-                <span class="text">Lịch chiếu phim</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="bx bxs-group"></i>
-                <span class="text">Nhà cung cấp</span>
-            </a>
-        </li>
-    </ul>
-    <ul class="side-menu">
-        <li>
-            <a href="#">
-                <i class="bx bxs-cog"></i>
-                <span class="text">Settings</span>
-            </a>
-        </li>
-        <li>
-            <a href="/user/logout" class="logout" onclick="">
-                <i class="bx bx-log-out"></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
-    </ul>
-</section>
-<!-- SIDEBAR -->
-
-<!-- CONTENT -->
-<section id="content">
-    <!-- NAVBAR -->
-    <nav>
-        <i class="bx bx-menu"></i>
-        <form action="#">
-            <div class="form-input">
-                <input type="search" placeholder="Search..." />
-                <button type="submit" class="search-btn">
-                    <i class="bx bx-search"></i>
+                <button type="submit" class="btn btn-primary">
+                    Tạo mới
                 </button>
-            </div>
-        </form>
-        <span>Chế độ màn hình</span>
-        <input type="checkbox" id="switch-mode" hidden />
-        <label for="switch-mode" class="switch-mode"></label>
-    </nav>
-    <!-- NAVBAR -->
-
-    <!-- MAIN -->
-    <main>
-        <div class="head-title">
-            <div class="left">
-                <h1>Trang quản lý</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Trang quản lý</a>
-                    </li>
-                    <li><i class="bx bx-chevron-right"></i></li>
-                    <li>
-                        <a class="active" href="/cinemas/management">Quản lý Lịch chiếu phim</a>
-                    </li>
-                    <li><i class="bx bx-chevron-right"></i></li>
-                    <li>
-                        <a class="active" href="">{{title}}</a>
-                    </li>
-                </ul>
-            </div>
+            </form>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <form class="col-md-7 needs-validation" action="/movie-showtimes/create" method="POST">
-                    <div>
-                        <label>Phim</label>
-                        <select class="form-select" id="movie" name="id_movie" required>
-                            <option selected disabled value="">
-                                Chọn phim
-                            </option>
-                            {{#each movies}}
-                            <option value="{{this._id}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div>
-                        <label>Rạp chiếu phim</label>
-                        <select class="form-select" id="cinema" name="id_cinema" required>
-                            <option selected disabled value="">
-                                Chọn rạp chiếu phim
-                            </option>
-                            {{#each cinemas}}
-                            <option value="{{this._id}}">{{this.name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div>
-                        <label>Ngày chiếu</label>
-                        <input type="text" class="form-control" name="date" required />
-                    </div>
-                    <div>
-                        <label>Giờ chiếu</label>
-                        <input type="text" class="form-control" name="start_time" required />
-                    </div>
-                    <div>
-                        <label>Số ghế ngồi</label>
-                        <input type="text" class="form-control" name="seats" required />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        Tạo mới
-                    </button>
-                </form>
-            </div>
-        </div>
-    </main>
-</section>
-
-<script src="/js/management.js"></script>
+    </div>
+</main>
+<!-- MAIN -->

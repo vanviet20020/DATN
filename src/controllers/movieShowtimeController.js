@@ -7,6 +7,7 @@ exports.createForm = async (req, res, next) => {
             title: 'Tạo lịch chiếu phim mới',
             cinemas,
             movies,
+            layout: 'dashboard',
         });
     });
 };
@@ -15,12 +16,7 @@ exports.create = async (req, res, next) => {
     const args = Object.assign({}, req.params, req.body);
 
     MovieShowtimeActtions.create(args)
-        .then((data) => {
-            res.render('/MovieShowtime/management', {
-                tititle: 'Quản lý lịch chiếu phim',
-                message: `Tạo lịch chiếu phim mới thành công`,
-            });
-        })
+        .then((data) => res.redirect('/movie-showtimes/management'))
         .catch(sendError(req, res));
 };
 
@@ -32,6 +28,7 @@ exports.management = async (req, res, next) => {
             res.render('MovieShowtime/management', {
                 title: 'Quản lý lịch chiếu phim',
                 movieShowtimes,
+                layout: 'dashboard',
             });
         })
         .catch(sendError(req, res));
