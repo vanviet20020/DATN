@@ -2,7 +2,7 @@ const MovieActions = require('../actions/movieActions');
 const { sendSuccess, sendError } = require('../helpers/sendReponse');
 
 exports.createForm = async (req, res, next) => {
-    res.render('Movie/create', { title: 'Tạo phim mới' });
+    return res.render('Movie/create', { title: 'Tạo phim mới' });
 };
 
 exports.create = async (req, res, next) => {

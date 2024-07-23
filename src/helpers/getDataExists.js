@@ -6,46 +6,73 @@ const Cinema = require('../models/Cinema');
 const Movie = require('../models/Movie');
 const MovieShowtime = require('../models/MovieShowtime');
 
-const getData = async (id, collec) => {
+const userExists = async (id) => {
+    return await User.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+};
+
+const supplierExists = async (id) => {
+    return await Supplier.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+};
+
+const cinemaExists = async (id) => {
+    return await Cinema.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+};
+
+const movieExists = async (id) => {
+    return await Movie.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+};
+
+const movieShowtimeExists = async (id) => {
+    return await MovieShowtime.findOne({
+        _id: `${id}`,
+        is_deleted: { $ne: true },
+    }).lean();
+};
+
+const getDataExistsStrategies = {
+    User: userExists,
+    Supplier: supplierExists,
+    Cinema: cinemaExists,
+    Moive: movieExists,
+    MovieShowtime: movieShowtimeExists,
+};
+
+const dataExists = async (id, collec) => {
     if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error(`ID Người dùng không hợp lệ`);
+        throw new Error(`ID không hợp lệ`);
     }
 
-    let data;
+    return await getDataExistsStrategies[collec](id);
+};
 
-    switch (collec) {
-        case 'User':
-            data = await User.findOne({
-                _id: `${id}`,
-                is_deleted: { $ne: true },
-            }).lean();
-        case 'Supplier':
-            data = await Supplier.findOne({
-                _id: `${id}`,
-                is_deleted: { $ne: true },
-            }).lean();
-        case 'Cinema':
-            data = await Cinema.findOne({
-                _id: `${id}`,
-                is_deleted: { $ne: true },
-            }).lean();
-        case 'Movie':
-            data = await Movie.findOne({
-                _id: `${id}`,
-                is_deleted: { $ne: true },
-            }).lean();
-        case 'MovieShowtime':
-            data = await MovieShowtime.findOne({
-                _id: `${id}`,
-                is_deleted: { $ne: true },
-            }).lean();
-    }
+exports.checkDataExists = async (id, collec) => {
+    const data = await dataExists(id, collec);
 
     if (!data) {
-        throw new Error(`Người dùng không tồn tại`);
+        throw new Error(`Dữ liệu không tồn tại`);
+    }
+
+    return true;
+};
+
+exports.getDataExists = async (id, collec) => {
+    const data = await dataExists(id, collec);
+
+    if (!data) {
+        throw new Error(`Dữ liệu không tồn tại`);
     }
 
     return data;
 };
-
-module.exports = getData;

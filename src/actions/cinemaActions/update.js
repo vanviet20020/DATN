@@ -1,5 +1,5 @@
 const Cinema = require('../../models/Cinema');
-const dataExists = require('../../helpers/checkDataExists');
+const {} = require('../../helpers/getDataExists');
 
 const checkName = async (id, name) => {
     const namelExists = await Cinema.findOne({

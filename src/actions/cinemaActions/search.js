@@ -1,6 +1,6 @@
 const Cinema = require('../../models/Cinema');
 const Supplier = require('../../models/Supplier');
-const checkDataExists = require('../../helpers/checkDataExists');
+const { checkDataExists } = require('../../helpers/getDataExists');
 
 const validateQuery = (args) => {
     const { name, district, supplier } = args;

@@ -1,12 +1,12 @@
 const MovieShowtime = require('../../models/MovieShowtime');
-const dataExists = require('../../helpers/checkDataExists');
+const { checkDataExists } = require('../../helpers/getDataExists');
 
 module.exports = async (args) => {
     const { id, id_movie, id_cinema, date, time, seats } = args;
 
-    await dataExists(id, 'MovieShowtime');
-    await dataExists(id_movie, 'Movie');
-    await dataExists(id_cinema, 'Cinema');
+    await checkDataExists(id, 'MovieShowtime');
+    await checkDataExists(id_movie, 'Movie');
+    await checkDataExists(id_cinema, 'Cinema');
 
     const query = { id_movie, id_cinema, date, time, seats };
 

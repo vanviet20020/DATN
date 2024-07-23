@@ -24,7 +24,7 @@ router.get(
 router.get('/search', cinemaController.search);
 router.get('/geojson', cinemaController.geojson);
 router.get('/map', cinemaController.map);
-router.get('/:name', cinemaController.getDetail);
+router.get('/detail/:name', cinemaController.getDetail);
 router.get(
     '/update/:id',
     authMiddleware.requireRole(['admin', 'super_admin']),

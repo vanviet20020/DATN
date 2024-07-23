@@ -11,12 +11,12 @@ const MovieShowtimeSchema = new Schema(
         ticket_price: { type: Number, required: true },
         movie: {
             type: Schema.Types.ObjectId,
-            ref: 'Movie',
+            ref: 'movies',
             require: true,
         },
         cinema: {
             type: Schema.Types.ObjectId,
-            ref: 'Cinema',
+            ref: 'cinemas',
             require: true,
         },
     },

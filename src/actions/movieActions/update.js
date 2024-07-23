@@ -1,5 +1,5 @@
 const Movie = require('../../models/Movie');
-const dataExists = require('../../helpers/checkDataExists');
+const { checkDataExists } = require('../../helpers/getDataExists');
 
 const checkName = async (id, name) => {
     const namelExists = await Movie.findOne({
@@ -29,7 +29,7 @@ module.exports = async (args, file) => {
         genre,
     } = args;
 
-    await dataExists(id, 'Movie');
+    await checkDataExists(id, 'Movie');
 
     await checkName(id, name);
 

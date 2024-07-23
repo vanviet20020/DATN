@@ -12,7 +12,7 @@ const TransactionSchema = new Schema(
         message: { type: String },
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'users',
             require: true,
         },
     },

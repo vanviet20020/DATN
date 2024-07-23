@@ -24,7 +24,7 @@ router.get(
     movieController.management,
 );
 router.get('/search', movieController.search);
-router.get('/:name', movieController.getDetail);
+router.get('/detail/:name', movieController.getDetail);
 router.get(
     '/update/:id',
     authMiddleware.requireRole(['admin', 'super_admin']),

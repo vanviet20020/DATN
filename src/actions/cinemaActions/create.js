@@ -1,13 +1,13 @@
 const Cinema = require('../../models/Cinema');
-const dataExists = require('../../helpers/checkDataExists');
+const { checkDataExists } = require('../../helpers/getDataExists');
 
 const checkName = async (name) => {
-    const namelExists = await Cinema.findOne({
+    const nameExists = await Cinema.findOne({
         name,
         is_deleted: { $ne: true },
     }).lean();
 
-    if (namelExists) {
+    if (nameExists) {
         throw new Error('Rạp chiếu phim đã tồn tại!');
     }
 
@@ -17,7 +17,7 @@ const checkName = async (name) => {
 module.exports = async (args) => {
     const { supplier, name, address, district, hotline, lat, lng } = args;
 
-    await dataExists(supplier, 'Suplier');
+    await checkDataExists(supplier, 'Suplier');
     await checkName(name);
 
     const location = {

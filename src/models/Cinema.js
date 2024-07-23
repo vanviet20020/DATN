@@ -13,7 +13,7 @@ const CinemaSchema = new Schema(
         is_deleted: { type: Boolean, default: false },
         supplier: {
             type: Schema.Types.ObjectId,
-            ref: 'Supplier',
+            ref: 'suppliers',
             require: true,
         },
     },

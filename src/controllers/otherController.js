@@ -4,8 +4,6 @@ const { sendSuccess, sendError } = require('../helpers/sendReponse');
 exports.home = async (req, res, next) => {
     const args = Object.assign({}, req.params, req.body);
 
-    console.log(req.user);
-
     OtherActions.home(args)
         .then((data) => {
             res.render('home', { title: 'Viu chiếu phim', data });
@@ -18,12 +16,13 @@ exports.home = async (req, res, next) => {
 exports.management = async (req, res, next) => {
     OtherActions.management()
         .then(({ user, ticket, sumCoin, transactions }) => {
-            res.render('Admin/management', {
+            return res.render('Admin/management', {
                 title: 'Trang quản lý',
                 user,
                 ticket,
                 sumCoin,
                 transactions,
+                layout: 'dashboard',
             });
         })
         .catch((err) =>

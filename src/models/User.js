@@ -19,13 +19,13 @@ const UserSchema = new Schema(
         tickets: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Ticket',
+                ref: 'tickets',
             },
         ],
         transactions: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Transaction',
+                ref: 'transactions',
             },
         ],
     },

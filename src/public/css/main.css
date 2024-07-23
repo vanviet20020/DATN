@@ -14,7 +14,6 @@
     --light-yellow: #fff2c6;
     --orange: #fd7238;
     --light-orange: #ffe0d3;
-    --primary-btn-color: #3097d1;
 }
 
 * {
@@ -81,59 +80,76 @@ label {
 }
 
 /* Header */
-.header {
-    box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
+
+.sign-in-button {
+    background-color: var(--primary-btn-color);
+    color: var(--light);
+    font-size: 15px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s background-color;
 }
 
-.header .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.sign-in-button:hover {
+    background-color: var(--primary-color);
 }
 
-.header .container .search input {
-    margin-right: -5px;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.75rem 0 0 0.75rem;
-    border: 1px #fe025c solid;
+.sign-up-button {
+    background-color: var(--light);
+    color: var(--dark-grey);
+    font-size: 15px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s background-color;
 }
 
-.header .container .search button {
-    font-weight: 400;
-    color: #000000;
-    background-color: #fe025c;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0 0.75rem 0.75rem 0;
+.sign-up-button:hover {
+    background-color: var(--primary-color);
+}
+
+.navbar-toggler {
     border: none;
+    font-size: 1.25rem;
 }
 
-.header .container .navbar {
-    text-align: center;
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
 }
 
-.header .container .navbar a {
-    padding-right: 15px;
-    text-align: center;
-    color: #000000;
+.nav-link {
+    color: var(--dark);
+    font-weight: 500;
+    position: relative;
 }
 
-.header .container .navbar a i {
-    font-size: 30px;
-    color: #000000;
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color) !important;
 }
 
-.header .container .navbar a p {
-    font-weight: 400;
-    font-size: 16px;
-    color: #000000;
-    margin-bottom: 0 !important;
-}
+@media (min-width:991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        visibility: hidden;
+        transform: 0.3s ease-in-out;
+    }
 
-.header .container .navbar lord-icon:hover,
-.header .container .navbar i:hover,
-.header .container .navbar p:hover {
-    color: #ed1364 !important;
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
 }
 
 /* Footer */
