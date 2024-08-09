@@ -8,11 +8,11 @@ const ticketRoutes = require('./ticketRoutes');
 
 const route = (app) => {
     app.all('*', setUserInRequest);
-    app.use('/users', userRoutes);
-    app.use('/movies', movieRoutes);
-    app.use('/cinemas', cinemaRoutes);
-    app.use('/movie-showtimes', movieShowtimeRoutes);
-    app.use('/tickets', ticketRoutes);
+    app.use('/user', userRoutes);
+    app.use('/movie', movieRoutes);
+    app.use('/cinema', cinemaRoutes);
+    app.use('/movie-showtime', movieShowtimeRoutes);
+    app.use('/ticket', ticketRoutes);
     app.use('/', otherRoutes);
 };
 

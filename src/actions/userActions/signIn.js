@@ -41,6 +41,7 @@ module.exports = async (args) => {
 
     if (accessToken && refreshToken) {
         return {
+            currentUser: data,
             token: accessToken,
             refreshToken,
             message: 'Đăng nhập thành công',

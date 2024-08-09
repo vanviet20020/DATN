@@ -1,14 +1,8 @@
-const { Types } = require('mongoose');
-
 const Cinema = require('../../models/Cinema');
 const MovieShowtime = require('../../models/MovieShowtime');
 const { checkDataExists } = require('../../helpers/getDataExists');
 
-const checkCinemaAndGetTicketPrice = async (id) => {
-    if (!Types.ObjectId.isValid(`${id}`)) {
-        throw new Error('ID Lịch chiếu phim không hợp lệ');
-    }
-
+const getTicketPrice = async (id) => {
     const cinemaExists = await Cinema.findOne({
         _id: `${id}`,
         is_deleted: { $ne: true },
@@ -33,7 +27,7 @@ module.exports = async (args) => {
     await checkDataExists(id_movie, 'Movie');
     await checkDataExists(id_cinema, 'Cinema');
 
-    const ticket_price = await checkCinemaAndGetTicketPrice(id_cinema);
+    const ticket_price = await getTicketPrice(id_cinema);
 
     const query = {
         movie: id_movie,

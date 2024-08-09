@@ -52,6 +52,7 @@
             .then((data) => {
                 setCookie('token', data.data.token, 15);
                 setCookie('refreshToken', data.data.refreshToken, 30 * 24 * 60);
+                setCookie('currentUser', data.data.currentUser, 15);
 
                 window.location.href = '/';
             })

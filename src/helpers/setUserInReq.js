@@ -7,13 +7,13 @@ const setUserInRequest = (req, res, next) => {
         const token = req.cookies.token;
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decode) => {
             if (err) {
-                req.user = null; // Trả về null thay vì chuỗi rỗng
+                req.user = null;
             } else {
                 req.user = decode;
             }
         });
     } else {
-        req.user = null; // Trả về null thay vì chuỗi rỗng
+        req.user = null;
     }
     next();
 };

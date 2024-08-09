@@ -6,6 +6,7 @@ exports.home = async (req, res, next) => {
 
     OtherActions.home(args)
         .then((data) => {
+            console.log(res.userSignIn);
             res.render('home', { title: 'Viu chiếu phim', data });
         })
         .catch((err) =>

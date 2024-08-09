@@ -4,7 +4,7 @@ const { checkDataExists } = require('../../helpers/getDataExists');
 const checkName = async (id, name) => {
     const namelExists = await Movie.findOne({
         name,
-        _id: { $ne: `${id}` },
+        _id: { $ne: id },
         is_deleted: { $ne: true },
     }).lean();
 

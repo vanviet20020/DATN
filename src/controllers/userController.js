@@ -48,7 +48,7 @@ exports.refreshToken = (req, res, next) => {
 };
 
 exports.getAll = (req, res, next) => {
-    const agrs = Objecta.assign({}, req.params, req.body);
+    const agrs = Object.assign({}, req.params, req.body);
 
     UserActions.getAll(agrs)
         .then(sendSuccess(req, res))
